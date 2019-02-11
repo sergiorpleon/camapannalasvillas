@@ -1,0 +1,903 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Map</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/interactive-map.css" rel="stylesheet">
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+
+<style>
+		/* styles unrelated to zoom */
+		* { border:0; margin:0; padding:0; }
+		p { position:absolute; top:3px; right:28px; font:bold 13px/1 sans-serif;}
+
+		/* these styles are for the demo, but are not required for the plugin */
+		.zoom {
+			display:inline-block;
+			position: relative;
+		}
+		
+		/* magnifying glass icon */
+		.zoom:after {
+			content:'';
+			display:block; 
+			width:33px; 
+			height:33px; 
+			position:absolute; 
+			top:0;
+			right:0;
+			background:url(img/icon.png);
+		}
+
+		.zoom img {
+			display: block;
+		}
+
+		.zoom img::selection { background-color: transparent; }
+
+		#ex2 img:hover { cursor: url(img/grab.cur), default; }
+		#ex2 img:active { cursor: url(img/grabbed.cur), default; }
+		
+		.toptilte{
+  font-weight: 600 !important;
+font-family: Arial !important;
+font-size: 20px !important;
+padding: 0 5%;
+margin-top: 10px;
+line-height: 1;
+  }
+  
+  .ct-city__button {
+
+    background: none;
+    border: none;
+    z-index: 30;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    outline: none;
+
+}
+.ct-map{
+margin-top: 0px;
+}
+
+.ct-pop p{
+font-weight: 200;
+line-height: 1.4;
+font-size: 16px;
+text-align: justify !important;
+}
+  
+  .ct-city__name {
+    font-size: 10px;
+	font-weight: 200;
+	display: none;
+}
+.ct-city__name {
+    margin-top: -5px;
+
+}
+
+.ct-city__button{
+height: 20px;
+}
+.ct-plus {
+
+    margin-top: -10px;
+
+}
+.ct-popup__name{
+margin: 0px 55px;
+font-size: 18px;
+text-align: center;
+min-height: 80px;
+}
+
+div.botones{
+position:absolute;
+width: 90%;
+}
+a:hover {
+
+    color: white;
+    text-decoration: none;
+	}
+#dercli, #izqcli{
+height: 40px;
+vertical-align: middle;
+font-size: 28px;
+text-align: center;
+background-color: #3F51B5;
+color: white;
+border-radius: 15px;
+width: 50px;
+}
+
+#dercli{
+float: right;
+}
+
+#izqcli{
+visibility:hidden;
+}
+
+body{
+   overflow-x: hidden;
+}
+
+
+  /*
+  .ct-city.guinia{
+	top: 63%;
+	left: 67%;
+  }
+  
+  .ct-city.fomentos{
+	top: 61%;
+	left: 71.5%;
+  }
+  .ct-city.guayos{
+	top: 63%;
+	left: 79%;
+  }
+  .ct-city.cabaiguan{
+	top: 61%;
+	left: 77.5%;
+  }
+  .ct-city.santi{
+	top: 68%;
+
+left: 79.5%;
+  }
+  .ct-city.jatibonico{
+	top: 67%;
+
+left: 87%;
+  }
+  .ct-city.manicaragua{
+	top: 58.5%;
+
+left: 64%;
+  }
+  .ct-city.placetas{
+	top: 49.5%;
+	left: 73.5%;
+  }
+  .ct-city.remedio{
+	top: 44%;
+left: 76%;
+  }
+  .ct-city.caibarien{
+	top: 42.5%;
+
+left: 79%;
+  }
+  .ct-city.santodomingo{
+	top: 41%;
+
+left: 56.5%;
+  }
+  .ct-city.santaclara{
+	top: 47.5%;
+
+left: 64.5%;
+  }
+  
+  .ct-city.yaguajay{
+	top: 50.5%;
+left: 85%;
+  }
+  .ct-city.zulueta{
+	top: 49.5%;
+	left: 75.5%;
+  }
+  */
+  
+  
+  
+  
+  
+  .ct-city.int{
+	top: 20%;
+left: 20%;
+  }
+  
+.ct-city.che{
+	top: 66.5%;
+left: 57%;
+  }
+  .ct-city.camilo{
+	top: 54.5%;
+left: 77%;
+  }
+  .ct-city.guinia{
+	top: 63%;
+left: 45.5%;
+  }
+  .ct-city.fomentos{
+	top: 60.2%;
+left: 52.5%;
+  }
+  .ct-city.guayos{
+	top: 64%;
+left: 65.5%;
+  }
+  
+  .ct-city.cabaiguan{
+	top: 60%;
+left: 62.5%;
+  }
+  
+  .ct-city.santi{
+	top: 69.7%;
+left: 67.2%;
+  }
+  
+  .ct-city.jatibonico{
+	top: 68%;
+left: 78%;
+  }
+  
+  .ct-city.manicaragua{
+	top: 58%;
+left: 41%;
+  }
+  .ct-city.placetas{
+	top: 50.5%;
+left: 55%;
+  }
+  .ct-city.remedio{
+top: 40.5%;
+left: 60%;
+  }
+  .ct-city.caibarien{
+	top: 38.5%;
+left: 65.2%;
+  }
+  .ct-city.santodomingo{
+	top: 37.5%;
+left: 28.5%;
+  }
+  .ct-city.santaclara{
+	top: 44%;
+left: 41%;
+  }
+  .ct-city.yaguajay{
+	top: 48.5%;
+left: 75.2%;
+  }
+  .ct-city.zulueta{
+	top: 47%;
+left: 60.5%;
+  }
+	</style>
+	<script src='./js/jquery.min.js'></script>
+	<script src='./js/jquery.zoom.js'></script>
+
+
+</head>
+<body>
+<div>
+<h3 class="toptilte">Mapa con las acciones de Campaña en Las Villas</h3>
+</div>
+<div class="container" >
+   <div class="row ct-u-padding-bottom-400" >
+      <div class="col-lg-6 col-md-6" >
+         <div class="ct-map">
+            <div></div>
+			<div class="ct-city int c0" style="z-index: 0;">
+               <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Güinía de Miranda</span></button>
+               
+            </div>
+			<div class="ct-city che c01" >
+               <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Campamento del Che</span></button>
+               
+            </div>
+			<div class="ct-city camilo c02" >
+               <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Campamento de Camilo</span></button>
+               
+            </div>
+			<div class="ct-city guinia c1" >
+               <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Güinía de Miranda</span></button>
+               
+            </div>
+			<div class="ct-city fomentos c2" >
+               <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Fomentos</span></button>
+               
+            </div>
+             <div class="ct-city santi c3" >
+                 <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Santi Spiritus</span></button>
+
+             </div>
+             <div class="ct-city cabaiguan c4" >
+                 <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Cabaiguan</span></button>
+
+             </div>
+             <div class="ct-city guayos c5" >
+               <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Guayos</span></button>
+               
+            </div>
+             <div class="ct-city zulueta c6" >
+                 <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" ><span class="ct-city__name up" >Zulueta</span></button>
+
+             </div>
+             <div class="ct-city manicaragua c7" >
+                 <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name up" >Manicargua</span></button>
+
+             </div>
+             <div class="ct-city placetas c8" >
+                 <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Placetas</span></button>
+
+             </div>
+             <div class="ct-city remedio c9" >
+                 <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name up" >Remedio</span></button>
+
+             </div>
+             <div class="ct-city caibarien c10" >
+                 <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name up" >Caibarien</span></button>
+
+             </div>
+             <div class="ct-city santodomingo c11" >
+                 <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Santo Domingo</span></button>
+
+             </div>
+			<div class="ct-city jatibonico c12" >
+               <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Jatibonico</span></button>
+               
+            </div>
+			<div class="ct-city santaclara c13" >
+               <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png" data-pin-nopin="true" ><span class="ct-city__name" >Santa Clara</span></button>
+               
+            </div>
+            <div class="ct-city yaguajay c14">
+               <button class="ct-city__button" type="button" tabindex="0" ><img alt="Map Open Icon" class="ct-plus" src="img/plus.png"  data-pin-nopin="true"><img alt="Map Close Icon" class="ct-close" src="img/close.png"  data-pin-nopin="true"><span class="ct-city__name" >Yaguajay</span></button>
+               
+            </div>
+
+			<div class="ct-map zoom" id="ex2">
+				<img alt="Map" class="ct-map__image" src="img/villas.jpg" >
+            </div>
+			
+         </div>
+      </div>
+      <div class="col-lg-6  col-md-6" >
+         
+		 
+		 <div class="botones">
+		 <a id="izqcli" class="col-xs-2">
+		 <
+		 </a>
+		 
+		 <a id="dercli" class="col-xs-2">
+		 >
+		 </a>
+		 
+		 </div>
+		 
+		 <div class="ct-content" >
+		 <div class="ct-city-alert stone">
+		 
+		 <div class="ct-pop" style="display:none;">
+                  <div class="inner" >
+                     <span class="ct-popup__name" >Introducción</span>
+                     <p class="ct-popup__content" >
+                        Panorama de la lucha en la Invasión y Campaña de Las Villas.
+A mediados del año 1958, en el territorio de la entonces provincia de Las Villas, existía un fuerte movimiento revolucionario que se expresaba en la presencia de los grupos armados operando en las zonas más agrestes de su geografía, y en la existencia de una organización clandestina que había demostrado sus cualidades combativas desde los primeros tiempos del enfrentamiento al régimen tiránico de Fulgencio Batista.<br>
+En ese momento, en el macizo montañoso de Guamuhaya actuaban las fuerzas del Movimiento 26 de Julio, encabezadas por el comandante Víctor Bordón; las del Directorio Revolucionario, con su jefe, el comandante Faure Chomón, y las del denominado II Frente Nacional del Escambray, desprendimiento del Directorio, cuya jefatura distaba mucho de adoptar verdaderas posiciones revolucionarias, junto a núcleos pequeños de la OA (Organización Auténtica). Mientras, en la zona noreste villareña se desempeñaban dos agrupaciones: una promovida por la dirección del Partido Socialista en Las Villas, dirigida por Félix Torres, y otra integrada por hombres del 26 de Julio, al mando de Regino Machado.<br>
+En octubre, entraron en Las Villas las dos columnas invasoras. Primero llegó la Columna No. 2 "Antonio Maceo", encabezada por el comandante Camilo Cienfuegos, que se ubicó al nordeste de la provincia, y luego la Columna No. 8 "Ciro Redondo" , dirigida por el comandante Ernesto Guevara, que se situó en el macizo montañoso del sureste. La presencia de ambas agrupaciones guerrilleras, y el valor, capacidad organizativa y política, experiencia militar y determinación revolucionaria de sus jefes, hicieron que la guerra de liberación alcanzara una mayor dimensión en esta parte del país.<br>
+ En su área de operaciones, Camilo encontró el rápido y amplio respaldo de la guerrilla capitaneada por Félix Torres, mientras que el grupo de Regino Machado, aunque pertenecía al Movimiento 26 de Julio, mostró reticencias iniciales, al aducir que no tenía orientaciones precisas.  En definitiva, los grupos que operaban en la zona de Yaguajay quedaron bajo la dirección del comandante Camilo Cienfuegos.<br>
+Por su parte, el comandante Ernesto Che Guevara, designado por Fidel Castro como jefe militar y político en Las Villas, debió realizar una ardua labor para cumplir los principales propósitos de su misión. Lo más significativo en los primeros momentos resultó conocer la situación y posición de los diferentes grupos que actuaban en el Escambray, crear las condiciones para acometer acciones militares inmediatas contra las fuerzas del régimen y desarrollar sus bases de operaciones.<br>
+La idea de coordinar acciones y actuar de conjunto, recibió una respuesta positiva de la dirección del Directorio Revolucionario, sin obviar su condición de organización independiente que siempre defendiera. Las tropas de Víctor Bordón, pertenecientes al Movimiento 26 de Julio, y formada por unos 170 hombres, se subordinaron al Che, quien las reorganizó y cambió grados militares. <br>
+Estos combatientes, en su inmensa mayoría, continuaron la lucha bajo sus órdenes y resultaron un puntal en el enfrentamiento final a la tiranía.
+A la vez que desarrollaba estas tareas, la máxima jefatura de la Columna No. 8 "Ciro Redondo" acometió acciones militares. En la noche del 26 al 27 de octubre de 1958, atacó y tomó el poblado de Güinía de Miranda, en plena montaña villaclareña. Así se demostraba que los combatientes recién llegados al Escambray estaban ya en disposición de acometer empeños mayores, y que era posible enfrentar y derrotar al ejército de la tiranía en sus propios cuarteles.
+Para continuar su labor político-militar, el 7 de noviembre el Che escribió a Faure Chomón para expresarle la posición negativa asumida por el II Frente Nacional del Escambray y la positiva del Partido Socialista Popular (PSP). Explicó su disposición a conferenciar donde estimara pertinente, directamente o con el segundo jefe militar de la zona por el M-26-7, el comandante Ramiro Valdés. El intercambio realizado tuvo resultados provechosos semanas después al firmar ambas organizaciones, el 1ro de diciembre el "Pacto de El Pedrero", documento al que se uniría con posterioridad el Partido Socialista Popular el 9 de diciembre, con lo cual el Ejército Rebelde crecía en fortaleza e integración. <br>
+En resumen, las medidas tomadas por ambos jefes rebeldes, permitieron preparar a los combatientes guerrilleros y tener listo un eficiente dispositivo de combate para acometer favorablemente la Campaña de Las Villas, cuyo final fue la liberación total del territorio.
+
+                     </p>
+                  </div>
+               </div>
+			   
+		 <div class="ct-pop" style="display:none;">
+                  <div class="inner" >
+                     <span class="ct-popup__name" >Campamento del Che en el Escambray</span>
+                     <p class="ct-popup__content" >
+                        A pesar de ser un pequeño pueblo aislado y cerca de las montañas, la rendición de Guinía revestía una gran significación porque la Desde su llegada a la Loma del Obispo, en el macizo montañoso del Escambray, en octubre de 1958, el Comandante Ernesto Che Guevara se dedicó a estudiar el plan estratégico que debía poner en práctica para cumplir la misión que le había sido encomendada a su partida de la Sierra Maestra.<br>
+Sus proyecciones para el futuro inmediato quedaron explícitas en la carta que remitiera a Fidel Castro, y donde señalaba:<br>
+Tengo intenciones de hacer descansar 2 días a la tropa, reorganizar a la gente que queda por aquí, dar todas las instrucciones necesarias para la creación de todos los centros que necesitamos para el cuartel general (...) y salir con parte de la tropa y mi amada basooka para destrozar cuarteles, (...)". Y en otra misiva señalaba "(...) no puede quedar un solo cuartelito en la Sierra"<br>
+El Che estaba consciente de que, a partir de su arribo a las montañas villareñas, sus hombres debían combatir incesantemente a los enemigos, paralizar sus movimientos y establecer el poder revolucionario en los territorios liberados. De otra parte, el Jefe de la Columna Invasora No 8 "Ciro Redondo" buscaba la unidad entre los grupos armados allí existentes. Así lo prueban las reuniones efectuadas con la dirección del Directorio Revolucionario; con Víctor Bordón, quien comandaba un contingente del Movimiento 26 de Julio, con algunas patrullas del II Frente Nacional del Escambray y con miembros de la dirección en Las Villas del Partido Socialista Popular. <br>
+La actividad a favor de la unidad contó también con la posición favorable del Partido Socialista Popular, que puso su organización en el llano y la guerrilla de Yaguajay a disposición de la jefatura del comandante Guevara. No tuvo una actitud similar Gutiérrez Menoyo, el cual se mantuvo separado del resto de las fuerzas del Escambray y se ubicó hacia la carretera del llamado Circuito Sur, entre Cienfuegos, Cumanayagua y Topes de Collantes.   <br>
+Convencido de la imposibilidad de sumar a la tropa de Gutiérrez Menoyo, el Che le propone a Faure Chomón llevar a cabo conversaciones sobre los puntos de mayor interés de las organizaciones que ellos representaban. <br>
+Es así que fuerzas del Movimiento 26 de Julio, representadas por el Che, y Chomón por el Directorio Revolucionario, hacían patente la plena identificación existente en la lucha contra la tiranía al suscribir el Pacto del Pedrero, que era firmado bajo un fuerte bombardeo sobre el campamento del Che en El Pedrero, poblado del Escambray.<br>
+Lo que se conoce como el Pacto de El Pedrero se firmó, constituyó una alianza trascendental entre el Movimiento 26 de Julio y el Directorio Revolucionario 13 de Marzo, no solo para la zona central sino que se hizo extensivo a todo el país. <br>
+
+En la firma participaron por ambas partes el Comandante Ernesto Che Guevara y Faure Chomón, además de contar con la presencia de Ramiro Valdés y Camilo Cienfuegos; este último había llegado con algunos miembros de su columna No. 2 “Antonio Maceo” hasta ese lugar
+Para entonces, el comandante Guevara había realizado los necesarios contactos con la dirección del Movimiento en la provincia, y se habían tomado las medidas para fortalecer los distintos frentes de acción de la organización y para preparar las condiciones a fin de contar, en el Escambray, con los medios necesarios como: campamentos, hospital de sangre, emisora de radio, almacenes con diferentes pertrechos y otros elementos indispensable para la guerra.
+
+                     </p>
+                  </div>
+               </div>
+			   <div class="ct-pop" style="display:none;">
+                  <div class="inner" >
+                     <span class="ct-popup__name" >Campamento de Camilo en Jobo Rosado</span>
+                     <p class="ct-popup__content" >
+                        En la madrugada del 7 de octubre de 1958, la columna invasora conducida por Camilo Cienfuegos cruzó el río Jatibonico para entrar en territorio de la provincia de Las Villas. El día 8 se traslada a Jobo Rosado, campamento del Destacamento Máximo Gómez, del Partido Socialista Popular (PSP). Luego contactará con el Destacamento Marcelo Salado, de la organización MR-26-7, en los montes de Alicante. Ambos con poco y deficiente armamento.<br>
+Como el estado físico de los invasores era lamentable, el comandante Camilo Cienfuegos decidió permanecer uno días para reponer fuerzas y una vez -antes no-- que tuviera informe del Che y su columna, continuaría su avance con la columna invasora.<br>
+Por los jefes de allí conoció del estado político-militar de la provincia, percatándose de que la situación más grave estaba en las montañas del Sur, por la actitud antiunitaria del autotitulado Segundo Frente Nacional del Escambray, ante al Directorio Revolucionario 13 de Marzo -de donde supuestamente procedían-, el MR-26-7 y el PSP. Además, amenazaban con atacar a los que penetraran en su territorio sin su previa autorización. <br>
+Esa fue una razón más que suficiente para que el Comandante invasor no continuara la marcha hasta que el comandante Ernesto Guevara arribara a esa provincia y poder estar listo para acudir a apoyarlo en caso de que fuera necesario.<br>
+Camilo informó de la situación a Fidel, quien le ordenó mantenerse en esa provincia hasta que el Che consolidara su mando. Días antes este se lo había solicitado por escrito. Consciente de que tendría que permanecer un tiempo en aquel territorio, se dio a la tarea de crear una base guerrillera, para entregársela al Che cuando recibiera la orden de continuar hacia Pinar del Río.    <br>
+El primer encuentro de la Columna 2 con el enemigo ocurrió el 15 de octubre, y este fue rechazado cuando atacó el campamento del MR-26-7. Alrededor del mediodía de ese día, la columna invasora comandada por Camilo, en marcha hacia el campamento rebelde situado en los montes de Alicante, recibe la noticia de que soldados de la tiranía estaban muy próximos al lugar. Un grupo de miembros del destacamento Marcelo Salado, enviados para confirmar el aviso, es atacado por la avanzada enemiga. <br>
+Eran alrededor de las dos de la tarde, del día 15. Se había visto el movimiento de los guardias, más el tiroteo cerrado tomó por sorpresa al grupo de rebeldes. Los sucesos ocurrieron en los potreros de Lejona, por la conocida Cueva del Muerto, en las inmediaciones del sendero que va desde Juan Francisco a Alicante. El ajetreo duró un par de horas más o menos. Cuando los casquitos salieron del monte pasaron por el batey, en los carros. Hicieron un alto; traían muertos.<br>
+Un poco más al norte, en los montes de Alicante, aquel inesperado combate puso en tensión a los campesinos que allí vivían. Para el entonces capitán Orestes Guerra, jefe de la vanguardia de la columna invasora Antonio Maceo, aquel combate dejó bien claras las cosas: "en lo adelante, a los hombres de Batista se les acababa el tiempo y sería nuestra tropa la protagonista. En apenas dos meses y medio después se rendía el cuartel de Yaguajay y el Frente Norte de Las Villas quedaba liberado totalmente".<br>
+En virtud de sus dotes organizativas, Camilo creó el Frente Norte de Las Villas, con campamento en Juan Francisco y luego pidió al Che el envío de un combatiente, en este caso Ángel Frías, para dirigirlo cuando él continuara el avance hacia Pinar del Río. Organizó además, la Operación "Caja de Tabaco", consistente en preparar un camión que, aparentando trasladar pacas de tabaco, ocultaría en su interior a unos 40 ó 45 combatientes que realizarían el viaje hasta Pinar del Río, por carretera, en unas pocas horas, para dar cumplimiento a la misión que le asignara el Comandante en Jefe de llevar la invasión hasta la zona más occidental del país.<br>
+No descuidó además, la organización de los servicios de información, la instalación de hospitales para la atención a la tropa y el campesinado, la recaudación de impuestos, de acuerdo con las leyes establecidas en la Sierra Maestra, la instalación de talleres de reparación de armamentos y fabricación de explosivos, la organización de escuelas y, en definitiva, toda la organización civil que establecía el Ejército Rebelde en los territorios liberados. <br>
+Durante su permanencia en la zona norte de Las Villas, la Columna 2 libró importantes combates que le permitieron, a tono con la estrategia seguida por el jefe rebelde, el dominio del terreno de operaciones y la tenencia de armas y pertrechos que antes fueron del enemigo. Tales fueron los casos de: Zulueta (en dos ocasiones), Venegas, Mayajigua, Perea, Meneses, Placetas y otros poblados, además de controlar el tránsito por carretera en el circuito norte de Las Villas.
+
+                     </p>
+                  </div>
+               </div>
+		 
+            <div class="ct-pop" style="display:none;">
+                  <div class="inner" >
+                     <span class="ct-popup__name" >La liberación de Güinía de Miranda</span>
+                     <p class="ct-popup__content" >
+                        A pesar de ser un pequeño pueblo aislado y cerca de las montañas, la rendición de Guinía revestía una gran significación porque la situación política existente en las montañas villareñas exigía que los hombres procedentes de la Sierra Maestra demostraran su espíritu combativo, y la seguridad de que existían posibilidades reales de desarrollar acciones victoriosas contra las fuerzas de la tiranía en esa zona montañosa.<br>
+Al efectuar este ataque, el comandante Ernesto Guevara, quien tenía en sus manos la dirección militar, política y administrativa de la región por el Movimiento 26 de Julio, cumplía una parte primordial de la misión a él encomendada por la dirección de la Revolución.<br>
+Sin embargo, desde la llegada de las tropas del Ejército Rebelde a la región, el Segundo Frente del Escambray se había opuesto a que atacaran el cuartel de Güinía de Miranda, pues según este, estaba en su territorio y por tanto le correspondía ejecutar la operación.<br>
+Ante esta situación, el Che precisó, en una entrevista con Alfredo Peña, miembro de uno de estos grupos opuestos a la participación de la Columna No 8 en esa área que, si en los 5 días posteriores ellos no tomaban el poblado, lo haría su Columna.<br>
+Aún no había transcurrido ese tiempo cuando el Ejército Rebelde asaltó a Güinía de Miranda.<br>
+Al analizar los factores a tener en cuenta para realizar este ataque, el Comandante Guevara consideró la posibilidad de efectuar la operación en cooperación con fuerzas del Directorio Revolucionario, lo que se definió de forma positiva con el también Comandante Faure Chomón.<br> 
+Desde el día 26 salieron del campamento de las Piñas las tropas del Che, guiadas por combatientes del Directorio Revolucionario.<br>
+Era ya bien entrada la noche cuando se comenzó a tomar posiciones por el frente y diferentes flancos del cuartel. El local que ocupaba la Guardia Rural era de ladrillos y el techo de zinc, estaba situado en una pequeña elevación que permitía la visibilidad de las tropas en la operación, y contaba con 26 efectivos el día 27 de octubre de 1958.<br>
+Los pelotones se situaron en los lugares previstos. Es decir, en tres puntos fundamentales: por el frente, por el fondo, y por el camino que va de Güinía a Fomento, con los pelotones de Joel Iglesias y Manuel Hernández Osorio, mientras Víctor Bordón se ubicó en los caminos que conducían al lugar, dejando a los desarmados en la comandancia, a cargo de Juan del Todo Mendoza. La bazuca se instaló en la iglesia, que se encontraba a unos 200 metros del enclave militar, por la parte delantera.<br>
+Antes de iniciar el combate, se entonaron las notas del Himno Nacional y la Marcha del 26 de Julio. La señal de aviso para el ataque sería un disparo de bazuca, pero el primero no hizo blanco, por lo que la pieza fue trasladada para la casa del médico, cercana al cuartel, en busca de un ángulo correcto. El combate se generalizó, se intentó nuevamente abrir fuego, pero el magneto no funcionó; lo arreglaron, pero el tercer disparo tampoco dio en el blanco y el bazuquero, Antonio García, quedó aturdido por el rebufo de la pieza. <br>
+El Che, al ver la ineficiencia de los disparos, auxiliado por el entonces teniente Luis Alfonso Zayas, tomó la bazuca y se situó en un lugar de riesgo frente al cuartel, disparó y logró que el proyectil hiciera blanco. De inmediato las fuerzas enemigas, sin hacer mucha resistencia, se rindieron. Los gritos de !Viva Cuba Libre!, !Viva el 26 de Julio!, estremecieron a la ciudadanía, que no demoró en volcarse a las calles y mezclarse con los hombres de verde olivo. 
+Dos jóvenes invasores habían ofrendado sus vidas por la liberación de Güinía, Carlos Amengual García y Alberto Guerrero Cabrales. Ambos eran orientales, y habían transitado la dura marcha desde la Sierra Maestra hasta las montañas villareñas, desafiando la muerte, para quedar por siempre en la memoria del pueblo. Sus restos fueron sepultados en la loma de La Degollada, cercana a Güinía, y años después trasladados a sus pueblos de origen.<br>
+Los rebeldes capturaron como botín de guerra ocho fusiles, municiones, medicamentos, alimentos y algunos mulos. Según el propio Che, este combate no fue rentable, pero lo calificaba como un fuerte golpe político, que demostró la voluntad de los combatientes de luchar y cumplir los objetivos trazados.
+
+                     </p>
+                  </div>
+               </div>
+            <div class="ct-pop" style="display:none;">
+                  <div class="inner" >
+                     <span class="ct-popup__name" >Fomento, primer pueblo liberado</span>
+                     <p class="ct-popup__content" >
+                        El 15 de diciembre de 1958, fuerzas de la Columna No. 8 comenzaron a concentrarse en Nazareno y en el central Santa Isabel desde donde Che instó al teniente Reynaldo Pérez Valencia, jefe del cuartel de Fomento, a deponer las armas y entregarse; pero éste se negó.<br>   
+Ese mismo día, los rebeldes se dirigieron a cercar las posiciones enemigas en el poblado: una compañía de infantería en el cuartel, 19 soldados en la Compañía Telefónica, 16 en la estación de radio, nueve en el Hotel Florida y un grupo en el teatro Baroja. A ellos se sumaban la compañía No. 34, con 120 hombres; una compañía en Placetas que, con 115 miembros, tenía orden de dirigirse a Fomento si era preciso; la policía y una cantidad no determinada de adeptos al régimen.<br>
+Rumbo al cuartel partieron con Che el comandante Víctor Bordón, los capitanes Joel Iglesias y Luis Alfonso Zayas, y los tenientes Manuel Hernández, Roberto Rodríguez y Miguel A. Álvarez, con sus respectivas tropas. La Columna salió del central Santa Isabel por el camino de Fomento a Cabaiguán y se detuvo en el arroyo Palomar, a unos 150 m del enclave enemigo. La neblina y lo accidentado del terreno les permitieron cruzar el arroyo sin que el enemigo se percatara, no obstante hallarse a corta distancia. Entraron al pueblo poco antes de las 05:00 horas del día 16, guiados por Crescencio Martínez y Vicente Suárez Pérez, este último segundo jefe de acción y sabotaje del MR-26-7 en la localidad.<br>
+A las 05:00 horas se inició el combate, casi en forma simultánea en todo el poblado. Alrededor de las 15:00 horas se rindieron los defensores de la Compañía Telefónica, cuando en derroche de valentía el teniente Hernández Osorio se puso en pie y disparó una cinta completa de ametralladora. Allí hicieron 17 prisioneros y Che instaló de inmediato la comandancia.<br>
+Una hora después capitularon también las fuerzas apostadas en la estación de radio y el Hotel; en la primera cayeron los combatientes Wilfredo Cabrera Portal y Rolando Hernández Lemus.<br>
+Las tropas rebeldes que ya habían rendido sus respectivos objetivos, procedieron a reforzar a los compañeros en el teatro Baroja, donde el enemigo ofrecía enconada resistencia. La aviación ametrallaba y en la noche del 17 los atacantes decidieron incendiar el edificio, cuyos defensores depusieron las armas al día siguiente. Algunos soldados lograron escapar y refugiarse en el cuartel, único foco de resistencia, hacia donde convergieron todos los atacantes, excepto los dirigidos por el teniente Miguel A. Álvarez, quienes fueron enviados a Nazareno para reforzar al capitán José R. Silva porque se tenía información del avance de efectivos procedentes de Placetas.<br>
+Aviones B-26 bombardearon con insistencia las posiciones rebeldes y causaron heridas a cuatro combatientes y la muerte a un niño de doce años de edad. Entre los lesionados se encontraba el capitán Manuel Hernández, quien fue sustituido por el teniente Emerio Reyes.<br>
+Luego de varias horas de lucha y al no recibir refuerzos, las tropas enemigas pidieron una tregua, momento que aprovecharon los rebeldes para entablar conversación con los soldados. Esa actitud minó aún más la moral del adversario y al día siguiente los revolucionarios penetraron en el cuartel sin que se les opusiera resistencia. Eran entre las 15:00 y 16:00 horas del 18 de diciembre. <br>
+En Fomento, los defensores de la tiranía tuvieron tres muertos, nueve heridos y 123 prisioneros; perdieron tres camiones, entre ellos uno blindado; dos yipis, uno con microonda; un mortero 81 mm, con cinco granadas; dos subametralladoras calibre 30; 90 fusiles Springfield y cuatro Cooper; gran cantidad de municiones y diverso material bélico
+Cuatro combatientes rebeldes resultaron muertos: el capitán Mariano Pérez López, Balí; el teniente Daniel Readigo Pérez, Wilfredo Cabrera Portal y Rolando Hernández Lemus. Asimismo hubo cinco heridos, entre los que se hallaban el capitán Joel Iglesias Leyva, el único de gravedad, el teniente Manuel Hernández Osorio y Pascual Baldoquín Hernández.<br>
+Finalizada la acción fueron ascendidos a capitanes el doctor Oscar Fernández Mell, Roberto Rodríguez Fernández, "El Vaquerito", y Orlando Pantoja Tamayo; y a tenientes, Manuel Chacón Hernández, Ediberto del Río Guerra y Leonardo Tamayo Núñez. <br>
+A la victoria rebelde siguió un inmediato período durante el cual se estructuró un gobierno civil, a cuyo frente fue situado José L. Ramírez Rodríguez, y se plantearan los problemas de la reforma agraria y los impuestos.<br>
+El 18 de diciembre, el comandante Guevara dictó la Orden Militar No. 7, que declaró Territorio Libre de Cuba al comprendido entre los centrales Natividad, Amazonas, Santa Isabel y Agabama; derogó todas las directivas sindicales impuestas por el gobierno y convocó al pueblo a elegir libremente a sus nuevos dirigentes. <br>
+Che envió un mensaje al jefe de la Cruz Roja en el cual denunciaba los criminales ametrallamientos y bombardeos cometidos por la FAEC contra la población civil de Fomento y Nazareno.
+                     </p>
+                  </div>
+               </div>
+            <div class="ct-pop" style="display:none;">
+                 <div class="inner" >
+                     <span class="ct-popup__name" >Toma de Sancti Spiritus</span>
+                     <p class="ct-popup__content" >
+                         El 19 de diciembre, el capitán Armando Acosta, con unos 120 combatientes, la mitad de ellos mal armados, penetró en Sancti Spíritus. Divididos en cuatro grupos, recorrieron las calles para dar la impresión de que la localidad iba a ser atacada por numerosos hombres. Poco después se retiraron porque, al arremeter contra la jefatura de la policía y la Colonia Española, comprobaron que el enemigo se había concentrado en el cuartel, lo cual le proporcionaba gran ventaja. <br>
+                         La noche del 21 de diciembre fue destruido el puente "La Trinchera", sobre el río Tuinicú, y al día siguiente, después de incendiar la Feria de Exposiciones Ganaderas, los rebeldes tomaron posiciones alrededor del cuartel de Sancti Spíritus.<br>
+                         El teniente Denis Antúnez, con un grupo, se situó frente al edificio ocupado por el enemigo; el teniente Aleaga y sus hombres lo hicieron por la parte oriental de la posición; y el capitán Acosta, con el resto, en la vía Sancti Spíritus-Camagüey. Fue imposible cubrir la salida hacia la carretera de Jatibonico. Armando Acosta se valió del juez de la ciudad para que éste hablara con el jefe del cuartel y le propusiera la rendición de sus fuerzas, indicándole que los rebeldes no atacarían hasta recibir respuesta. Mientras Denis y sus hombres vigilaban la posición amenazada, el resto del personal recorrió la ciudad con el objetivo de movilizar a la población; oportunidad aprovechada por el enemigo para abandonar el cuartel y retirarse hacia Jatibonico. Avisado por el teniente Antúnez, el capitán Acosta regresó, pero ya era imposible impedir la fuga. Durante la tarde la aviación bombardeó Sancti Spíritus, ocasionando la muerte del combatiente Antonio Rodríguez. A las 6.30 p.m. del 23 de diciembre la estación local de la radio informó a la población de la liberación de Sancti Spíritus.
+
+                     </p>
+                 </div>
+             </div>
+            <div class="ct-pop" style="display:none;">
+                 <div class="inner" >
+                     <span class="ct-popup__name" >Combate en Cabaiguán</span>
+                     <p class="ct-popup__content" >
+                         El 20 de diciembre, se supo por informaciones del cabo Rafael del Pino, incorporado al Ejército Rebelde, la cantidad de efectivos destacados en Cabaiguán y los lugares por ellos defendidos. Contando con esa información, el Che reunió a sus oficiales en el lugar conocido como Cuatro Esquinas, en Santa Lucía, lugar cercano a esta población. Valiéndose de un mapa explicó los itinerarios a seguir por cada jefe y los lugares que debían tomar.<br>
+                         A las 04:00 horas del siguiente día, combatientes del MR- 26-7 y del Directorio Revolucionario "13 de Marzo", dirigidos por el Che, comenzaron a ocupar posiciones para atacar Cabaiguán. La acción tuvo como escenario tres puntos fundamentales: el cuartel de la Guardia Rural, la estación de microonda, en el norte de la ciudad, y en los altos del edificio de la escogida de tabaco, en Tercera del Oeste y Ferrocarril.<br>
+                         El capitán Silva con su pelotón actuó contra la estación de microonda y los capitanes Abrantes y Zayas , se emboscaron , con sus efectivos en una escuela a unos siete kilómetros de Placetas en la carretera que la une a Cabaiguán. Otro grupo se ocupó de la tabaquería y el teniente Emerio Reyes, con sus hombres, se encaminó hacia los alrededores del cuartel; el Vaquerito se dispuso a la ocupación del Hotel Sevilla, de donde el enemigo se había retirado.<br>
+                         El intenso fuego de los francotiradores apostados en diferentes lugares del pueblo hacía difícil el avance. Por orden del Che pasaron de uno en uno, a intervalos, con lo que pudieron arribar a las cercanías de la guarnición enemiga. Rompieron una pared y pudieron entrar en una casa situada al costado del enclave militar, desde cuyo fondo, en una trinchera, el emplazamiento de una ametralladora impedía acercarse. Además, la instalación se encontraba bien fortificada.<br>
+                         Con el objetivo de llegar a ella, el Che procedió a saltar de un tejado a una tapia, y como la oscuridad reinante no le permitía calcular bien la distancia, cayó a tierra y se fracturó un brazo e hirió el rostro. Fue atendido por el médico capitán Fernández Mell, con lo que pudo continuar la acción.
+                         Entretanto el Vaquerito avanzaba desde el Hotel Sevilla hacia la microonda para reforzar al capitán Silva, y recibió la orden de marchar a la comandancia, situada en la escogida, cerca del ferrocarril. De allí partió rumbo a la microonda e informó a Silva, que por orden del Che, debía trasladarse con parte de su tropa hacia el cuartel, lugar donde se encontraba el comandante Bordón. <br>
+                         El capitán Miguel Álvarez, con un grupo atacaría el flanco izquierdo. El teniente Rogelio Acevedo quedó al frente de las acciones de la microonda junto a El Vaquerito. Alrededor de las 08:00, estos combatientes fueron ametrallados por la aviación.<br>
+                         La primera posición en rendirse fue la de los altos del taller de tabacos, en la que fueron apresados ocho soldados con su respectivo armamento.
+                         Aproximadamente a las 13:00 cayó la microonda, en la que los rebeldes hicieron siete prisioneros. Allí fue mortalmente herido el teniente Silverio Blanco Núñez. Concluida esta acción, los combatientes dirigidos por Rogelio Acevedo eliminaron a los francotiradores y reforzaron las posiciones en el cuartel, donde el capitán José Ramón Silva recibió heridas de gravedad.<br>
+
+                         Alrededor de la una de la madrugada del 22 se produjo una tregua violada por un rebelde por confusión. A las tres de la madrugada, luego de veintidós horas de combate, se logró la rendición del cuartel. En este sitio fueron ocupadas una ametralladora calibre 30, dos Thompson y dos Browning; 48 carabinas San Cristóbal, 28 fusiles Springfield, 7 M-1 y 8 Kragg; así como 25 granadas y abundantes municiones. Se le hizo 81 prisioneros al enemigo. Por su parte las pérdidas humanas de los rebeldes fueron de cuatro muertes: Silverio Blanco, ascendido póstumamente a capitán, Alfredo Salas, Lidier Hernández y Noel Sancho Valladares; así como varios heridos, entre ellos: Leonardo Tamayo, Horacio Martínez, Andrés Peña, Harry Villegas y Alfredo Cobas.<br>
+                         Al finalizar estas acciones fueron ascendidos a capitanes Rogelio Acevedo y Ramón Pardo, este último sustituiría al capitán Joel Iglesias, herido en el combate de Fomento.
+
+                     </p>
+                 </div>
+             </div>
+            <div class="ct-pop" style="display:none;">
+                  <div class="inner" >
+                     <span class="ct-popup__name" >Combate en Guayos</span>
+                     <p class="ct-popup__content" >
+                        El 21 de diciembre el ejército comunicó ataques simultáneos en Guayos, Cabaiguán y Placetas, desde las 07:20 horas, y solicitaba el inmediato envío de la fuerza aérea.<br>
+A los hombres bajo el mando del Comandante Víctor Bordón, correspondió combatir en Guayos; cuyos defensores, concentrados en el cuartel sito en el edificio Viñas, en una de los extremos de los elevados, se rindieron a las 10:00 horas, tras un combate en el que resultó muerto el rebelde Ramón Balboa y heridos los jóvenes rebeldes Orlando Pantoja, Eliseo Reyes y Daniel Armas. El enemigo tuvo un muerto y decenas de prisioneros, además de ocupársele 120 fusiles Springfieid, dos M-1, cuatro Kragg y cuatro carabinas San Cristóbal. <br>
+Cumpliendo las órdenes del Che -plantea Bordón- "partí de Cabaiguán hacia Guayos, llegando a su entrada sobre las 5:00 a.m. A las 5:30 comenzamos el combate con fuerza. Por el fondo del cuartel atacaba el teniente Israel Chávez, quien utilizaría por primera vez la ametralladora calibre 30,06 entregada por el Che en Fomento.<br>
+Por el frente del cuartel ataqué yo personalmente. En este combate participaron también mis capitanes Eladio Machín, Yayo, Edelberto González, Oten Mesana, Erasmo Peraza (traidores los dos últimos) y el entonces teniente Armando Choi, con sus hombres respectivamente.<br>
+A las 7:40 a.m. se rindió el cuartel y mandé las fuerzas hacia los lugares donde estaban apostados los francotiradores enemigos. Específicamente desde el edificio frente al elevado, matan a uno de los combatientes más viejos de mi tropa en el Escambray: Ramón Balboa. Esos francotiradores fueron también los que hirieron a Olo Pantoja y a San Luis".<br>
+En Guayos fueron capturados más de 30 soldados, así como ocupadas armas y municiones. Digno de mencionar resulta el apoyo brindado al Ejército Rebelde por el pueblo desde los primeros momentos del combate, incluso en las calles, arriesgando así la vida.<br>
+Después de liberado totalmente Guayos concluye Bordón- "mandé al teniente Israel Chávez con sus hombres, a reforzar al capitán Julio O. Chaviano que atacaba el puente de La Trinchera, mientras yo me dirigía hacia Cabaiguán a informar al Che".
+
+                     </p>
+                  </div>
+               </div>
+            <div class="ct-pop" style="display:none;">
+                 <div class="inner" >
+                     <span class="ct-popup__name" >Liberación de Zulueta</span>
+                     <p class="ct-popup__content" >
+                         Al arribar el Comandante Camilo Cienfuegos a la zona noreste de la provincia de Las Villas, en atención a las condiciones geográficas y políticas existentes en aquella extensa zona, dispuso la creación de grupos de combatientes que actuarían alrededor de los pueblos ubicados en esa área, con la perspectiva de extender las zonas operacionales hasta los límites con la provincia de Matanzas. De inmediato dirigió sus acciones hacia dos objetivos: armar los grupos que allí se encontraban y que debían actuar en los contornos de las localidades y liberar esos territorios, o parte de ellos.<br>
+                         El 22 de noviembre, en el atardecer, comenzó la marcha hacia la localidad zulueteña, con prácticos que conocían la zona. Un total de 84 hombres integraban las fuerzas revolucionarias, que llegaron a Buenavista, en las primeras horas del día siguiente. La población recibió a los combatientes con muestras de solidaridad. <br>
+                         Luego de algunas horas de descanso, la tropa continuó la marcha hacia Zulueta, para llegar a los alrededores del cuartel hacia la una de la madrugada del día 24. Una parte de los hombres se situó por la línea ferroviaria y el resto, al mando del propio Camilo Cienfuegos, por la parte izquierda. A las 3:00 de la madrugada comenzó el combate. <br>
+                         Se situaron además, fuertes emboscadas en la carretera entre Zulueta y Placetas. También en la de Remedios, y en otras vías de entrada al poblado, mientras se capturaban a algunos policías que se encontraban en sus hogares en esos momentos. Otros grupos se dedicaron a quemar el correo, el juzgado y la zona fiscal.
+                         Los soldados del régimen resistieron el embate de los combatientes guerrilleros en el cuartel. Los cocteles molotov utilizados en los primeros momentos no fueron efectivos, por lo que Camilo decidió tomar por asalto la guarnición, ante la posibilidad de que pudieran recibir algún refuerzo de los alrededores, aunque, "...con su temperamento característico, el Jefe Guerrillero comentó: "Ojalá vinieran, pues así conseguiríamos más armas". <br>
+                         Sin embargo, Camilo determinó llevar adelante el asalto a la instalación para acelerar su captura. Un grupo de combatientes, encabezados por el capitán Antonio Sánchez Díaz (Pinares), bajo la cortina de humo de nuevos cocteles molotov de mayor tamaño, lanzados sobre el cuartel, penetraron en su interior y capturaron a los integrantes de la guarnición. El objetivo propuesto por el comandante guerrillero se había alcanzado sin lamentar bajas mortales. <br>
+                         En el cuartel fueron ocupadas algunas armas, como 4 M-1; 2 ametralladoras San Cristóbal; 7 fusiles Springfields, balas y enseres de campaña. Los ocupantes del enclave tuvieron 4 heridos y 7 soldados fueron hechos prisioneros.<br>
+                         El hecho militar se había producido sin que aparecieran refuerzos para apoyar a los atacados, y solo un avión de reconocimiento sobrevoló una emboscada rebelde, que estaba ubicada en la carretera a Placetas, pero los combatientes le dispararon, y la obligaron a retirarse del lugar.<br>
+                         Al amanecer, la Columna "Antonio Maceo" se retiró victoriosa, no sin antes prometer a la población que en menos de un mes volvería para liberar el pueblo.
+                         En su preocupación por los soldados presos en el transcurso de las acciones desarrolladas en el territorio, el comandante Camilo Cienfuegos hizo contacto con la Cruz Roja de Santa Clara, para negociar la entrega de los prisioneros capturados en su área de operaciones. El 14 de diciembre, en Zulueta, a las 3:00 de la tarde, y en su presencia, se cumplimentó la devolución de los militares prisioneros del Ejército Rebelde.<br>
+                         Los nuevos refuerzos que ya habían llegado al cuartel de Zulueta no pudieron impedir que el pueblo, en medio de la tregua acordada, saliera a las calles para demostrar su simpatía por la Revolución, por Camilo y sus tropas. Puede decirse que la actitud de las masas ese día, además de un desafío a la tiranía, fue una demostración de apoyo pleno a la Revolución. El jefe guerrillero prometió entonces la pronta liberación de aquella población.<br>
+                         Zulueta continuaba en el centro de atención de Camilo, y por lo tanto, fue uno de los puntos importantes considerados dentro de la estrategia general concebida para librar la etapa final de la Campaña de Las Villas, a fin de liberar a toda la provincia. Su toma podía ser un punto de apoyo primordial en la ofensiva, próxima a desarrollarse, contra dos importantes poblaciones: Placetas y Remedios.<br>
+                         De acuerdo con sus propósitos, el jefe revolucionario pidió informes que le actualizaran sobre la situación existente en Zulueta en esos momentos como cantidad de militares allí acantonados, vías más adecuadas para llegar a esa área de acuerdo a la nueva situación existente, y otros elementos importantes para organizar su plan operativo de asalto y toma de la localidad. Entre otros detalles Camilo conoció que en ese momento se encontraban en el cuartel 60 guardias, lo que demostraba que habían recibido un importante refuerzo, si se comparaba con el número de soldados existente en noviembre, cuando se produjo el victorioso primer ataque a la localidad.<br>
+                         Al amanecer del 21 de diciembe, más exactamente a las 6:15 de la mañana, comenzó el combate de Zulueta. El oficial que estaba al frente del cuartel ofreció una fuerte resistencia, y hubo más de 12 horas de hostigamiento y rudo combate. Camilo tomó medidas estratégicas similares a la primera toma del cuartel como la ubicación de emboscadas en las entradas del pueblo, tanto en la carretera hacia Placetas, como en la que comunica con Remedios, y también en otros lugares de posible acceso a la localidad. <br>
+                         Al atardecer el jefe del cuartel pidió, por un altoparlante, los auxilios de un médico para atender a los heridos. Se hizo el obligado cese al fuego, y el Dr. Manuel Vicente Mortera Sánchez, aunque fue advertido por Camilo de una posible estratagema de tomarlo como rehén por ser un prestigioso profesional, decidió, sin vacilar, entrar al cuartel y brindar sus humanitarios auxilios a sus semejantes necesitados, sin importar el bando en que estuvieran. <br>
+                         Ya en el reducto, y en la medida en que atendía a los soldados heridos, conversaba con el jefe militar sobre la situación en que se encontraba, para tratar de convencerlo de que se rindiera, y así evitar más inútiles derramamientos de sangre. Insistía el médico en que era imposible resistir la ofensiva rebelde que, además, contaba con el apoyo y colaboración de todo el pueblo. <br>
+                         Al fin, con esta oportuna intervención, en horas de la noche se firmó la rendición del cuartel en la casa de otro respetado galeno de la localidad, el Dr. Rigoberto Vérez Pérez. <br>
+                         En el combate, los integrantes del Ejército Rebelde no sufrieron pérdidas, pero un vecino de la localidad fue víctima del disparo de un francotirador, que actuaba desde el cuartel. <br>
+                         El 21 de diciembre de 1958, Camilo cumplió lo prometido: liberar al pueblo de Zulueta. Y antes de partir, quemó el cuartel y después lo destruyó con un buldózer, para que no volviera a ser ocupado, y por ser un símbolo de la represión y la tiranía. <br>
+                         Después del triunfo de la Revolución, el 25 de abril de 1959, Camilo fue proclamado Hijo Adoptivo del pueblo de Zulueta, y en su discurso de agradecimiento pidió "…que cada uno de los ciudadanos esté más unido al Ejército y más unido al Gobierno Revolucionario que lucha por las mejoras de todos".
+
+                     </p>
+                 </div>
+             </div>
+            <div class="ct-pop" style="display:none;">
+                 <div class="inner" >
+                     <span class="ct-popup__name" >La liberación de Manicaragua</span>
+                     <p class="ct-popup__content" >
+                         Por sus características geográficas, al integrar parte de su territorio el macizo montañoso de Guamuhaya, unido a su cercanía con la ciudad de Santa Clara con acceso por carretera, a unos 29 kilómetros, Manicaragua fue siempre una localidad importante para el movimiento revolucionario en la provincia, y también para el régimen tiránico. <br>
+                         Fue esta población un sitio significativo en el proceso de formación de los primeros grupos armados que se ubicaron en las montañas del sureste villareño, en lo que se ha dado en llamar de forma genérica Escambray, aunque en realidad solo una altura en esa área tiene esta denominación.<br>
+                         El ataque a Manicaragua se dispuso para el 23 de diciembre, que coincidiría con la acción contra Placetas por parte de las fuerzas de la Columna No. 8 "Ciro Redondo", y pelotones del Directorio Revolucionario. En esta acción contra la localidad manicaragüense participarían los diversos grupos que integraban el Comando.<br>
+                         Al amanecer de ese día, la fuerza rebelde se encontraba a la entrada de Manicaragua procedente de Minas Bajas y Mataguá, bajo las órdenes del capitán Raúl Nieves Mestre. El contingente entró por el llamado Callejón de Arimao, hoy Avenida de la Libertad, y llegó al lugar que los lugareños llaman Cuatro Esquinas, el centro de la población. <br>
+                         En este sitio ocurrió el primer enfrentamiento, cuando el teniente Víctor Dreke sorprendió a un jeep del ejército con soldados y los obligó a buscar refugio en el cuartel. La tropa marchó después hacia la Jefatura de la Policía, pero algunos de los ocupantes de este lugar se dispersaron y otros, sin cesar de disparar, abandonaron el lugar en retirada hacia el local de la casa de escogidas de tabaco. Este sitio fue atacado, y en definitiva tomado, alrededor de las 10:00 de la mañana.<br>
+                         Después de esta acción, la mayor parte de los integrantes del Comando, marcharon hacia el principal objetivo militar, el cuartel de la Guardia Rural, reforzado con los soldados que habían huido desde Mataguá. Los combatientes se ubicaron hacia el sur, este y oeste del enclave que ya, desde la entrada de las tropas rebeldes, era hostigado por un pequeño grupo de guerrilleros. Otro comando del Directorio ocupó el lado norte, ubicado a unos 500 metros del puente situado a la entrada a Manicaragua por la carretera que conduce a Santa Clara. En este lugar, las tropas revolucionarias no avanzaron ni presionaron con suficiente energía sobre la instalación.<br>
+                         Alrededor de las 4:00 de la tarde, un intento del sacerdote del poblado para lograr la rendición del cuartel había sido dilatado por el jefe del puesto, y en definitiva no fructificó. Al parecer el militar preparaba la huida de la instalación ya que, al anochecer, los sitiados pudieron encontrar una brecha, al aprovechar la ubicación geográfica del cuartel, y por la parte trasera, tomaron el camino del río, se alejaron del pueblo y lograron escapar hacia la capital provincial. <br>
+                         Todos estos acontecimientos finales ocurrían mientras, desde horas de la mañana, con el pueblo prácticamente en manos rebeldes, los habitantes comenzaron a salir a las calles y a enarbolar, con gran alegría, banderas cubanas y del Movimiento 26 de Julio y en una gran manifestación de júbilo, se unían a las fuerzas revolucionarias liberadoras. Sobre estos hechos el capitán Raúl Nieves ha expresado: "está manifestación de alegría quedó interrumpida de forma brusca por la presencia de la aviación batistiana, la que ametralló bárbaramente al pueblo con ametralladora calibre 50, situación que se mantuvo el día, e incluso hasta por la noche". <br>
+                         La liberación de Manicaragua fue un golpe certero al régimen, y revestía gran importancia para las acciones posteriores, pues la toma del poblado por el Comando Ramón Pando Ferrer, perteneciente al Directorio Revolucionario "13 de Marzo", posibilitó la apertura definitiva por la vía sur en la ofensiva de las fuerzas revolucionarias contra la plaza más fuerte en la antigua provincia de Las Villas: la ciudad de Santa Clara.
+
+                     </p>
+                 </div>
+             </div>
+            <div class="ct-pop" style="display:none;">
+                 <div class="inner" >
+                     <span class="ct-popup__name" >Liberación de Placetas</span>
+                     <p class="ct-popup__content" >
+                         Placetas era un municipio de marcada importancia para cumplir con los objetivos propuestos por el Ejército Rebelde de continuar las acciones, según estaba planificado. Con una población, en ese momento, de unos 30 000 habitantes en su parte urbana, y situado a 36 kilómetros de la ciudad de Santa Clara, capital de la provincia y a cincuenta y cinco de Sancti Spíritus, mantenía comunicación por carretera con Zulueta, Fomento, Remedios, Camajuaní y Caibarién.<br>
+                         Por todas estas razones, era un lugar estratégico para proseguir y librar la batalla final en la capital de la provincia. La liberación de esta localidad, serviría de apoyo material y moral para la cercana batalla que se desarrollaría en pocos días para liberar la ciudad de Santa Clara.<br>
+                         Al comenzar estas acciones finales, y como parte de la estrategia seguida por el Che de interrumpir y destruir las comunicaciones para impedir el movimiento de las tropas enemigas, el día 16 de diciembre fue derrumbado el puente sobre el río Sagua la Chica, en la Carretera Central, aledaño al poblado de Falcón, por los combatientes del Ejército Rebelde . El objetivo de la acción era impedir el tránsito por esa vía, aislar la ciudad de Santa Clara de comunicaciones hacia el este y contribuir a facilitar el posterior ataque a Placetas. Con anterioridad, el día 4 de diciembre se había hecho una tentativa de derribarlo, pero fue imposible ya que se produjo un encuentro con los soldados de la tiranía y los combatientes tuvieron que abandonar el lugar.<br>
+                         También dentro de esta concepción general, ese propio día 16, las fuerzas del Directorio Revolucionario "13 de Marzo" sitiaron el cuartel de la tiranía en el poblado de Báez, hoy integrado al municipio de Placetas.<br>
+                         Como parte de los preparativos para el ataque a Placetas, desde el día 21 las fuerzas del Directorio Revolucionario comenzaron a hostigar la población. En la madrugada del día 23 de diciembre entró en acción el grueso de las tropas revolucionarias por las distintas vías de acceso a la población como la Carretera Central, la carretera de Fomento y la procedente de Remedios. <br>
+                         Un punto importante en esos primeros momentos fue la tienda de Alberto Rojas, ubicada a un kilómetro de la población, que sirvió al Che como una primera Comandancia, y donde reunieron algunos capitanes para recibir instrucciones.<br>
+                         El contingente dirigido por el comandante Faure Chomón estaba encargado de la Jefatura de la Policía, por lo que debía tomar posiciones en el Liceo, la Iglesia Católica, el Teatro Caridad y el Hotel "Las Tullerías".<br>
+                         La tropa se distribuyó en los puntos mencionados, en espera de la señal para iniciar el combate; esta sería un disparo de un M-1, que produce un sonido singular. La señal fue dada alrededor de la 1:00 de la madrugada. <br>
+                         De estas fuerzas del Directorio fue enviado un pelotón hasta Falcón, para impedir el envío de refuerzos desde Santa Clara.<br>
+                         Los combatientes designados para la toma del Liceo penetraron por la parte de atrás del edificio y se enfrentaron con los guardias que custodiaban este lugar, quienes, a los primeros disparos huyeron hacia la Jefatura de la Policía, que se encontraba situada frente al parque Casallas. Los otros grupos también se ubicaron en las posiciones correspondientes, para enfrentar al enemigo. Fue importante la toma del Teatro Caridad, donde se encontraba un grupo de soldados de la tiranía, porque desde esa posición se hostigaba al enemigo que estaba en la Jefatura de Policías. Esto ocurría en la parte oeste de la población. También se tomó el Ayuntamiento, por el pelotón del capitán Juan Abrahantes.<br>
+                         Otro grupo, dirigido por el ya capitán Luis Alfonso Zayas, perteneciente a la Columna No. 8 "Ciro Redondo", avanzó por toda la Carretera Central por orden del comandante Ernesto Che Guevara hasta un lugar conocido como El Hogar, distante de Placetas unos 5 kilómetros, donde acamparon en espera de los combatientes del Directorio Revolucionario quienes, en el momento de la acción, servirían de guía dentro de la ciudad. Al frente de estos hombres estuvo Osvaldo Alpízar. Salieron en horas de la noche de El Hogar, unos en jeep, otros en máquinas y otros a pie, y llegaron en la madrugada del 23 de diciembre al Paseo Martí y la Carretera Central. <br>
+                         En este punto se dividió la tropa en dos grupos, uno seguiría por la Carretera Central hasta situarse en la esquina de 1ra del Oeste, en la parte sur para disparar sobre la Jefatura de la Policía; en su radio de acción tendrían el Parque Casallas y la citada Jefatura. El otro grupo se desvió por el Paseo Martí, hasta llegar a la Compañía de Electricidad y tomó algunas posiciones alrededor de la estatua de José Martí y en las columnas de los portales, Otros rompieron la puerta de entrada de dicha Compañía y atravesaron por todas las viviendas aledañas, hasta aproximarse al mismo objetivo militar. Mientras, la tropa de Víctor Bordón se ubicaba en la salida hacia Santa Clara para atacar el cuartel, próximo a los elevados de la citada Carretera Central, área en la que combatían los hombres del capitán Roberto Rodríguez (El Vaquerito). En el lugar también combatió el pelotón del capitán Jorge Álvarez.
+                         El combate se acrecentó. Después de un violento tiroteo, en la Jefatura de Policía ondeó una bandera blanca y salió el teniente de la policía, Hernández, quien solicitó la presencia del comandante Ernesto Che Guevara, el que llegó al lugar para conversar con el oficial. Cuando este salió a parlamentar los militares se rindieron de inmediato.<br>
+                         Mientras esto sucedía en el centro de la ciudad, el combate se intensificaba en el área de los elevados, que se interponían entre el cuartel y la posición de las tropas rebeldes. En una tenaz acometida, y después de lograr aniquilar a los francotiradores que estaban situados en los elevados, las tropas avanzaron con fuego cerrado hacia las cercanías de la instalación militar, y tomaron posiciones idóneas para hacer más efectivo el ataque.<br>
+                         El enfrentamiento se intensificó. Cuatro pelotones rebeldes al mando de los capitanes Roberto Rodríguez, Emerio Reyes, Rogelio Acevedo y Julio Chaviano acosaban a los uniformados, sin dejar grandes opciones de resistir la arremetida. A la situación crítica de los que defendían el cuartel se unió la presencia de otros grupos armados, ya que liquidada la resistencia en el resto de la ciudad, toda la tropa estuvo en disposición de marchar sobre el cuartel de la Guardia Rural. Aproximadamente a las 2:30 de la tarde, los soldados de la tiranía sacaron una bandera blanca en señal de rendición. La población estaba en manos del Ejército Rebelde.<br>
+                         Un importante papel jugó la radio placeteña CMHP a partir de ese momento, ya que constituyó una trinchera valiosa en la ofensiva final contra la tiranía. Fue visitada por el comandante Ernesto Guevara, el que dictó una alocución al capitán Antonio Núñez Jiménez, quien por orden del Che la leyó a través de la radio, y en ella se anunciaba al pueblo de Cuba la liberación de la ciudad de Placetas.<br>
+                         Los combatientes revolucionarios no sufrieron pérdidas durante el combate. Hubo dos muertos de la población civil, y murieron tres militares del régimen. Los soldados apresados fueron conducidos al poblado de Falcón por la Brigada 21 de la Cruz Roja de Placetas, y después puestos en libertad ya que no tenían crímenes probados.
+
+                     </p>
+                 </div>
+             </div>
+            <div class="ct-pop" style="display:none;">
+                 <div class="inner" >
+                     <span class="ct-popup__name" >Liberación de Remedios</span>
+                     <p class="ct-popup__content" >
+                         Con las tomas de Zulueta el día 21 por tropas del comandante Camilo Cienfuegos, y de Placetas el día 23, por fuerzas de la Columna No. 8 "Ciro Redondo" y del Directorio Revolucionario, el camino se abría para el posterior ataque a Remedios, un importante enclave militar, donde radicaba una capitanía, con una fuerza aumentada por los guardias de los poblados cercanos que habían abandonado sus cuarteles; cerca de 300 soldados, unos 40 policías, y militares distribuidos en otros puntos de la ciudad, conformaban la fuerza del régimen en esa villa.<br>
+                         Los sucesos acaecidos los días 21 y 23 de diciembre eran conocidos en Remedios. Esta situación hizo que en horas tempranas de la mañana del 25, algunos miembros de las células clandestinas del Movimiento 26 de Julio de esa localidad, se trasladaran a Placetas por distintos medios, con el propósito de prestar todo el apoyo que fuera preciso e intercambiar con sus coterráneos integrados a la Columna No. 8. Además, dentro de la población se crearon diversas condiciones para apoyar la acción que se avecinaba, sobre todo con la preparación de puntos para ofrecer servicios médicos.<br><br>
+                         Alrededor de las 10:00 de la mañana del 25 de diciembre, el Che ubicó transitoriamente su Comandancia en el barrio rural de Bartolomé, situado a unos tres kilómetros de distancia de la ciudad de Remedios, en un lugar conocido como "La Portada de Hierro". <br>
+                         En horas avanzadas de la tarde, el Che decidió iniciar la operación contra las instalaciones de las fuerzas del régimen en Remedios. En ese momento se dirigió a uno de los remedianos, Rosendo Hernández, y le preguntó sí era de la ciudad. Ante la respuesta afirmativa escribió una nota, se la entregó y le dijo que se pusiera a las órdenes de Emérido Meriño quien era uno de los tenientes de la tropa y estaba entre los asignados para atacar el cuartel de la Guardia Rural.    <br>
+                         Desde la "Portada de Hierro" partieron las fuerzas revolucionarias para el ataque a la villa remediana. Ya a sus puertas, frente al antiguo Matadero o rastro, ocuparon la casa que fue vivienda del dueño de la calera, que en aquel momento estaba deshabitada. Esta fue usada por el Che como campamento provisional desde donde dirigir el ataque, manteniéndose como tal todo el resto de la tarde y noche del 25, y el día 26. Además, a esta casa fueron trasladados los militares capturados en los combates que siguieron. <br>
+                         Los combatientes que operaban alrededor del cuartel, tomaron el hospital a pesar de las protestas de su director, ocuparon posiciones estratégicas en ese sitio, se controlaron los teléfonos y en su azotea fue ubicada una ametralladora, además fueron obstruidas las intersecciones de las calles que daban acceso a la instalación. También fue ocupado el juzgado municipal, y en la parte posterior de la cárcel se hicieron unas aberturas por donde fueron sacados los presos y el sitio pasó a manos de los combatientes rebeldes, luego de controlar a los militares del régimen que los custodiaban. El combate se intensificó alrededor de las 4:30 de la tarde; la defensa del cuartel estaba a cargo del capitán Guerrero Padrón.<br>
+                         Por otra parte, los pelotones que tenían la misión de tomar la Jefatura de Policía, siguieron por la carretera hasta la entrada de Remedios para llegar a la finca de "Jorrín", continuaron por las afueras de la ciudad hasta el "Hospital Viejo", después tomaron por diferentes calles que conducían hasta la Estación de Policía y se posesionaron en la iglesia del "Buen Viaje", como punto estratégico, que quedaba situada al frente de dicha estación. <br>
+                         El fuego comenzó allí aproximadamente a la misma hora que en el cuartel, bajo una fuerte resistencia de la policía batistiana, a pesar del heroísmo demostrado por los combatientes rebeldes, comandados por El Vaquerito Ya entrada la noche el Che ordenó atacar con cocteles molotov el edificio policiaco, por lo que el capitán Zayas, que se encontraba en aquel sitio en conversaciones con el jefe de la Columna, subió a la torre de la iglesia con otro compañero, y comenzó a lanzar las botellas hasta producir un gran incendio. Junto con la Jefatura se incendió el Ayuntamiento, que ocupaba una parte del mismo inmueble, y de esa forma tomaron prisioneros a los policías, que fueron conducidos a la antigua calera, en la carretera hacia Zulueta, y después trasladados a Placetas.
+                         Ante la ventajosa situación creada para las armas rebeldes, el Che, a través de un altoparlante, trató de lograr la rendición del cuartel, para lo que propuso una tregua, que no aceptó el capitán Guerrero Padrón, por lo que el comandante Guevara se retiró rumbo a Caibarién. Al día siguiente fue el citado jefe quien propuso hablar con el Che, pero recibió una negativa por parte del Guerrillero Heroico y dejó en manos del capitán Luis Alfonso Zayas la conversación.<br>
+                         Zayas habló con los soldados formados en el patio del cuartel, quienes mostraron su disposición de rendirse, siempre que les perdonaran la vida. Llegado a un acuerdo, se produjo la rendición. Al caer el cuartel la Guardia Rural en manos del Ejército Rebelde, Remedios se convertía en territorio libre, hacia las 2:00 de la tarde del 26 de diciembre. El pueblo, que había dado todo su apoyo a los combatientes revolucionarios, se lanzó a las calles para celebrar la victoria, junto con sus libertadores, y se estableció de inmediato un gobierno local para dirigir las actividades del municipio.<br>
+                         Las armas ocupadas en Remedios, junto a las que habían sido capturadas en Placetas, permitieron armar varias decenas de hombres que se incorporaron a la Columna y participaron en la batalla de Santa Clara.
+
+                     </p>
+                 </div>
+             </div>
+            <div class="ct-pop" style="display:none;">
+                 <div class="inner" >
+                     <span class="ct-popup__name" >La liberación de Caibarién</span>
+                     <p class="ct-popup__content" >
+                         El 26 de diciembre de 1958, fuerzas combinadas de la columna 8 "Ciro Redondo" y de la Columna 2 "Antonio Maceo", bajo la dirección del comandante Ernesto Che Guevara, liberaron Caibarién. <br>
+                         El 23 de diciembre, el Ché se trasladó a Yaguajay, donde Camilo había comenzado el ataque; el cuartel era una fortaleza difícil para un asalto. Ambos comandantes se trasladaron en jeep hasta el campamento de la Caridad, y allí acordaron la forma en que se desarrollarían las próximas acciones. El jefe rebelde planeaba atacar con sus fuerzas Remedios y Caibarién, para lo cual pidió a Camilo personal de su Frente, y le indicó quedarse hasta concluir la toma del principal objetivo militar que se mantenía en manos del régimen en el noreste villareño. <br>
+                         El Che dio instrucciones para que al frente de las tropas en Remedios estuviera el capitán Luis Alfonso Zayas y designó al también capitán Ramón Pardo Guerra (Guile), hoy General de División, como jefe de las fuerzas que atacarían Caibarién. La marcha se dispuso por distintos itinerarios, sin tomar la carretera que une a ambos pueblos.<br>
+                         Una vez en el central Reforma, (hoy Marcelo Salado), y desde el local de la administración, el capitán Pardo Guerra llamó por teléfono al cuartel y conminó al jefe de la plaza a rendirse. Ante la negativa del oficial le informó que en la noche el Ejército Revolucionario 26 de Julio atacaría el cuartel, y le hacía responsable por la sangre que pudiera derramarse.<br>
+                         Los combatientes rebeldes acamparon en los terrenos aledaños al cementerio, desde la tenería al jardín, luego de ser desarmados los serenos, y se situaron emboscadas en los accesos. Durante la noche se recibieron visitas de personas de las organizaciones revolucionarias y del pueblo en general, el que dio muestras de simpatía, cariño y respeto.<br>
+                         Mientras esto ocurría, las principales figuras del ayuntamiento, el alcalde y otros funcionarios, así como la policía, evacuaron los lugares que ocupaban y se refugiaron en el cuartel de la Guardia Rural. <br>
+                         Se designó al capitán Justo Parra para tomar el cuartel de la Marina, al capitán Calixto Morales, al frente de un comando, para encargarse de los asuntos civiles, y el propio capitán Guile tendría como misión cercar y atacar al cuartel de la Guardia Rural, que por el frente, el costado derecho y el fondo estaba rodeado de viviendas; por el costado izquierdo había un terreno de pelota totalmente despoblado y áreas del taller del ferrocarril de vía estrecha, también despoblados. Sólo la entrada por la calle Céspedes contaba con gigantescos árboles que servían de parapetos; al costado derecho de esta vía existían dos gasolineras denominadas el garaje Pablo y el garaje Cueto.<br>
+                         El capitán Justo Parra sitió el Cuartel de la Marina de Guerra, y desde las oficinas de la compañía maderera de Linares, se comunicó con el jefe de la marina, teniente de navío Luis M. Aragón García, a quien le dijo que se había ubicado una bazuca en cada esquina y que 300 hombres tenían rodeado el cuartel, por lo que pedía la rendición incondicional. El oficial solicitó 20 minutos, a lo que se le respondió que si en 10 no se rendía, se produciría el ataque.
+                         Cerca de las 4:00 de la mañana y ante las detonaciones que se producían en el cuartel de la Guardia Rural, se rindieron los efectivos de la Marina, los que una vez desarmados fueron trasladados a los altos de la sociedad Liceo.<br>
+                         Como parte de las operaciones fueron tomadas las emisoras de radio. A la CMHS, Radio Caibarién, en la que ya había personal del Movimiento 26 de Julio, se le ordenó trasmitir el Himno Invasor y sólo decir, Caibarién, Territorio Libre de Cuba. La CLJ, Radio Punta Brava, se desactivó y se le ocuparon los equipos de amplificadores que se trasladaron a la galletería El Brazo Fuerte, en la esquina próxima al cuartel; desde allí se comenzó a escuchar el Himno Invasor, y la guarnición fue conminada a rendirse.<br>
+                         En tanto, Pardo Guerra, que había sitiado el cuartel y dirigía personalmente las acciones, situó francotiradores en las edificaciones más altas como la Logia Old Fellows, la azotea de la casa de los Lauzerique y el colegio Presbiteriano. El cuartel, protegido con una cerca alta de malla peerles, un reflector en la azotea y una ametralladora calibre 30, estaba totalmente rodeado y aproximadamente a la 3:10 de la madrugada comenzó el combate.<br>
+                         El capitán Guile se ubicó, la mayor parte del tiempo, en la calle Narciso López, aunque se movía a todas partes, y junto a él el capitán Fernández Mell. Como refuerzo al pelotón de Pardo Guerra, había personal del pelotón de Joel Iglesias y también actuaba parte del Pelotón Suicida, del intrépido capitán Roberto Rodríguez "El Vaquerito".<br>
+                         Alrededor de las 6:00 de la mañana llegó a Caibarién el comandante Ernesto Guevara. Lo hizo acompañado de Aleida March, Harry Villegas y Antonio Núñez Jiménez, y se ubicó en el cuartel de la Marina; desde allí despachaba con los oficiales y daba indicaciones.<br>
+                         El comandante Guevara también recibió la visita de Nidio Bravo, del Consejo Local de Veteranos, quien le planteó que había fallecido el veterano mambí Cándido O’Farrill y dada la situación del combate iba a ser sepultado sin honores militares, por lo que designó a Julio Zamora y a un grupo de compañeros para dirigir las honras fúnebres en el cementerio.<br>
+                         El líder revolucionario también visitó la casa de Dr. Luis Cabrera, ya que el Che se encontraba con una fuerte crisis de asma y el brazo izquierdo en cabestrillo y decidió cubrir la venda. Una vez en el lugar se produjo una algarabía en la puerta, y al indagar qué sucedía supo que allí estaba un pescador con un niño enfermo, por lo que pide al médico que atendiera al niño y luego, si quedaba tiempo, lo viera a él.<br>
+                         Alrededor de las 10:00 de la mañana, el Che se retiró rumbo a Remedios, y como había visto la manifestación de pueblo le dijo a Pardo Guerra antes de marchar, que no se preocupara, porque el pueblo se tomaría solo.<br>
+                         En el transcurso del combate, "El Vaquerito" se entrevistó con el capitán Guile, en varias ocasiones, y en la esquina del Brazo Fuerte hizo uso de los amplificadores, conminó al ejército a rendirse e intentó enviar familiares a parlamentar, pero no lo logró.<br>
+                         Cerca de las 2:30 de la tarde, se produjo una tregua. Pardo Guerra, El Vaquerito y otros combatientes penetran en el cuartel, y mientras Pardo discutía con el jefe enemigo pidiéndole la rendición, "El Vaquerito" conversaba con los soldados exhortándolos a rendirse, por lo que el oficial batistiano protestó. El Vaquerito se acercó al teniente Tápanes y le dijo que tenía 10 minutos para rendirse, y ante la terquedad del jefe sitiado se acostó en un camastro y le expresó que cuando decidieran rendirse le avisaran. <br>
+                         Con esta actitud desmoralizó aún más a los soldados del régimen que comenzaron a entregarse; los rebeldes fueron entrando al cuartel y Tápanes no tuvo otra alternativa que rendirse. El mando rebelde ordenó el traslado de los heridos al hospital y aproximadamente a las 2.45 de la tarde se izó la bandera blanca. Al rendirse, el cuartel de la Guardia Rural contaba con 15 efectivos del teniente Tápanes, 13 dirigidos por el sargento Corzo y 17 policías del capitán Martín, además 12 civiles, entre ellos el alcalde municipal; en total 58 prisioneros de ellos 4 heridos. <br>
+                         Entre tanto el pueblo y los combatientes revolucionarios celebraban con gran júbilo la victoria obtenida.
+
+                     </p>
+                 </div>
+             </div>
+            <div class="ct-pop" style="display:none;">
+                 <div class="inner" >
+                     <span class="ct-popup__name" >La liberación de Santo Domingo</span>
+                     <p class="ct-popup__content" >
+                         En este territorio, con tradiciones de lucha dentro del movimiento obrero, después de 1953, y bajo la influencia de los sucesos del Moncada y el posterior desembarco del Granma, maduraron las ideas revolucionarias, surgió el Movimiento 26 de Julio y comenzó el desarrollo de acciones contra la tiranía. Este proceso cobró mayores bríos por la presencia cercana, o dentro del área del municipio, de la guerrilla que organizara y dirigiera Víctor Bordón, que creció con nuevos grupos que actuaban en la zona, y que contó entre sus miembros con numerosos dominicanos.<br>
+                         Como parte de la estrategia seguida por el comandante Ernesto Che Guevara para preparar las condiciones a fin de atacar la ciudad de Santa Clara, correspondió al contingente del comandante Víctor Bordón cumplir una importante misión en su antiguo territorio de operaciones. Así, esta tropa debía avanzar por el sur suroeste, a partir de Placetas, y llegar a la Carretera Central para derribar el puente sobre el río Sagua la Grande, aledaño a la localidad de Santo Domingo.<br>
+                         El 25 de diciembre de este mismo año, los grupos rebeldes del municipio conocían la orden que tenía Víctor Bordón dada por el comandante Ernesto Guevara: evitar desde Santo Domingo el avance de refuerzos de la tiranía a su ejército en Santa Clara. Al amanecer del día 26 estos grupos se movían desde Cascajal hasta Santo Domingo en espera de la orden, y en su marcha cortaron cables telefónicos, derribaron postes eléctricos de alta tensión y árboles para obstaculizar la carretera central en el tramo.<br>
+                         En la Carretera Central, el puente sobre el río Sagua la Grande, a unos dos kilómetros de Santo Domingo, era una gran armazón de hierro, donde se situaron las tropas del régimen, que aprovecharon bien las condiciones del terreno, ubicaron parapetos en diversos puntos, con armamento de diferentes tipos, entre las que se incluían dos ametralladoras calibre 30. El propósito esencial era resistir cualquier intento si eran atacados, ya que la presencia de tropas revolucionarias en los alrededores era conocida.<br>
+                         En la madrugada del 27 de diciembre comenzó el ataque, con disparos cruzados de ambos bandos. La fuerza que dispuso el comandante Bordón estaba dirigida por los capitanes, Eladio Machín, auxiliado por Israel Chávez con una ametralladora y que atacaba por el oeste; Edelberto González (Cente), que actuaba por el sur y Julio Chaviano que operaba hacia el norte, mientras otros combatientes marchaban hacia Santo Domingo. <br>
+                         El combate se tornó encarnizado. Negados a escuchar los llamados a rendición, los guardias contestaban con una lluvia de disparos, mientras la aviación comenzaba a hostilizar a los atacantes. Pronto hubo heridos y muertos; cayeron Pedro Julio Marcelo Maimó y Orlando Alfonso Cairo.<br>
+                         Ante la situación creada en el objetivo atacado, el comandante Bordón determinó que permanecieran en el lugar los hombres del capitán Julio Chaviano, y con el resto de la tropa marchó sobre la localidad cercana para arremeter, junto a los combatientes que ya operaban en la población, contra el cuartel de la Guardia Rural, principal objetivo dentro del área urbana. <br>
+                         Un grupo tuvo la misión de atacar el citado cuartel, mientras otros, como parte de la maniobra, debían ubicarse en los elevados de la Carretera Central, en la salida hacia Santa Clara, para defender este estratégico sitio. Estas acciones se realizaron bajo el hostigamiento de aviones B26, que daban cobertura aérea a las fuerzas del régimen. Para cumplir su cometido algunos combatientes se parapetaron en la azotea de la red telefónica donde cayó herido de muerte Rolando Morales Sanabria; en tanto, cuando trataba de buscar un equipo automotriz grande para obstaculizar la Carretera Central, fue sorprendido por un disparo y muerto, Erisbel Paz Monzón.<br>
+                         Las acciones desplegadas, en un combate que duró aproximadamente hora y media, culminaron en la victoria. Los 40 soldados que allí se encontraban trataron de resistir el empuje de los revolucionarios, pero ante la imposibilidad de detener la acometida, se rindieron. El reducto enemigo cayó en la tarde del día 27.
+                         El jefe de los guardias capturados, el teniente Hernández, aceptó la propuesta de conminar a sus subordinados parapetados en el puente para que se rindieran. Ante el llamado de su superior, los soldados levantaron bandera blanca, pero cuando se esperaba que se entregaran volvieron a disparar, momento en que el militar, que se mantenía sin ataduras, aprovechó para correr, escapar de sus captores y unirse a sus hombres. Esta tropa se trasladó hasta un cañaveral cercano hacia el final de la tarde.<br>
+                         Los combatientes rebeldes marcharon hacia el término y dispararon sobre el área, pero no encontraron respuesta. Hubo la impresión de que no estaban en condiciones de ofrecer resistencia. En esas circunstancias, Bordón decidió marchar para informar al comandante Guevara del desarrollo de las acciones y de la toma de Santo Domingo por sus fuerzas.<br>
+                         Sin embargo, la situación pronto se tornó compleja cuando los militares ubicados en el cañaveral cercano al puente, y que recibieron apoyo de lugares cercanos, se dispusieron a retomar el control sobre Santo Domingo. Con ese propósito, marcharon hacia la localidad y se produjo un encuentro con las fuerzas rebeldes, ahora prácticamente a la defensiva, en el área de los elevados. <br>
+                         En medio del desconcierto existente sobre el número de los integrantes del ejército y el desconocimiento de si atacaban o no por varios lugares, la resistencia se realizó con un número reducido de combatientes revolucionarios y ante los infructuosos intentos de rechazarlos, se determinó el repliegue, para lo cual tomaron el camino de Lajas, en el cual se encontraron con Bordón, que ya regresaba, a unos pocos kilómetros de Santo Domingo.<br>
+                         El jefe guerrillero determinó, ante la situación creada, que lo fundamental era cumplir una nueva orden dada por Che: aguantar en la zona de Mordazo un convoy de refuerzo que procedía de La Habana. Dejó una parte de los hombres en Santo Domingo, en un cerco que impidiera a los soldados salir del lugar o recibir ayuda de fuera.<br>
+                         El refuerzo era una caravana con unos 200 hombres con moderno armamento, cuatro tanques y el apoyo de dos aviones y una avioneta, que no pudo ser detenido en Mordazo, pero su marcha se hizo lenta y complicada. El convoy avanzó hasta Cascajal donde fue hostigado por las fuerzas rebeldes, pero fue imposible impedir su avance; en este trayecto en la zona de la Cervecería las fuerzas revolucionarias incendiaron autos y ómnibus en la carretera central.<br>
+                         Al llegar al poblado de Manacas fueron recibidos por los revolucionarios que construyeron trincheras a lo largo de la carretera. Otro impacto fuerte lo recibieron en el central Washington, donde cortaron el camino con vagones de cañas soldado a la línea que atraviesa la carretera. En todas aquellas acciones, donde fue mucho el valor desplegado por la tropa contra un enemigo superior en su equipamiento, se destacó una mujer, Zobeida Rodríguez (Mimí), combatiente de la tropa de Víctor Bordón.<br>
+                         En realidad, desde que el convoy entró a territorio de Las Villas, sufrió numerosos pérdidas, y resultó frenado durante dos importantes días, ya que en este tiempo se combatía en Santa Clara, y aunque logró entrar en Santo Domingo, ya llegaba el fin de la tiranía. La misión encomendada por el comandante Ernesto Che Guevara se había cumplido. El comandante Bordón, con el contingente guerrillero que él mismo organizó y otros muchos que se le incorporaron, lograron obstaculizar y demorar los refuerzos enemigos antes de su llegada a la capital provincial. En ese tiempo, el Guerrillero Heroico descarriló y tomó el tren blindado, y otras instalaciones militares, y horas después quedó liberada Santa Clara. <br>
+                         El 31 de diciembre los soldados que se habían mantenido en la población controlados por algunos grupos de combatientes, conocieron en el cuartel la situación existente en Santa Clara, que ya estaba prácticamente en manos de los combatientes revolucionarios. Ese día los representantes de algunas instituciones locales dieron a conocer al mando rebelde la intención de rendirse de los uniformados, siempre que se les perdonara la vida. La propuesta de rendición fue aceptada, y los guardias depusieron las armas.<br>
+                         En el amanecer del 1ro de enero de 1959, los dominicanos festejaban la victoria de las armas rebeldes. Santo Domingo había sido liberado, y también Manacas, Mordazo, Cascajal, Rodrigo y otros poblados cercanos.
+
+                     </p>
+                 </div>
+             </div>
+            <div class="ct-pop" style="display:none;">
+                  <div class="inner" >
+                     <span class="ct-popup__name" >Toma de Jatibonico</span>
+                     <p class="ct-popup__content" >
+                        A las 23:50 horas del día 27 de diciembre comenzó el combate en el puente, la microonda y el central azucarero. Por equivocación del teniente Antúnez, en el momento de ocupar la posición que le correspondía tuvo lugar un encuentro con la policía. Más tarde el cuartel fue rodeado, pero sus ocupantes no se rindieron porque confiaban en la llegada de refuerzos. Gran cantidad de soldados con tres tanques, dos tanquetas y el carro blindado, acudieron ese mismo día.<br>
+El 29 de diciembre, el jefe del Distrito Militar de Camagüey había informado el resultado de los violentos combates desarrollados en ese pueblo, reportando un muerto y cuatro heridos hasta ese momento y la evacuación de los soldados destacados en el puente. Ratificaba, además, la llegada de la compañía 25, desde Esmeralda, con tanques T-17 y otros carros.<br>
+Un día después comenzaron las gestiones para lograr la rendición. Ese día llegó el teniente Eliseo Reyes, San Luis, quien peleó en la parte oriental y en la microondas sostuvo un encuentro con un refuerzo del ejército, contra el que sus hombres combatieron casi cuerpo a cuerpo y le ocuparon dos camiones, uno de ellos blindado.<br>
+El 31 se entregaron los soldados destacados en una fábrica aledaña a la fortificación, quienes informaron al capitán Acosta que el jefe enemigo se hallaba dentro del cuartel. Hacia allí se dirigió el oficial rebelde el primero de enero de 1959 y se entrevistó con él; éste, ante la insistencia de los propios soldados, decidió capitular, en tanto en esa fecha el teniente Olo Pantoja se incorporaba como refuerzo.
+
+                     </p>
+                  </div>
+               </div>
+            <div class="ct-pop" style="display:none;">
+                  <div class="inner" >
+                     <span class="ct-popup__name" >Liberación de Santa Clara</span>
+                     <p class="ct-popup__content" >
+					 <span style="font-style: oblique;">El Che era un maestro de la guerra, Che era un artista de la lucha guerrillera [...] y lo demostró, sobre todo, en su audaz ataque a la ciudad de Santa Clara..."</span><br>
+<span style="float: right;">Fidel</span>
+<br><br>
+                        Sin lugar a dudas, uno de los hechos militares más importantes de la segunda mitad del siglo XX cubano fue la Batalla de Santa Clara, transcurrida entre el 28 de diciembre de 1958 y el 1ro de enero de 1959, la que contó con la magistral conducción del comandante Ernesto Guevara de la Serna, Che. <br>
+Esta acción tan significativa para el proceso liberador cubano de los años 50, puso punto final a la misión confiada a la Columna No. 8 "Ciro Redondo" en la invasión, iniciada a partir de la zona del Jíbaro en la Sierra Maestra, el 31 de agosto de 1958. <br>
+No obstante, para que sucediera este acontecimiento militar, tuvieron que ocurrir una serie de hechos que viabilizaran, no solo la acción bélica, sino el desarrollo de una profunda estrategia política para llegar a ese momento, y en la que desempeñaba un importante lugar la unidad revolucionaria.
+El 16 de octubre de 1958, llegaban las tropas invasoras de la Columna No. 8 "Ciro Redondo" al territorio de la antigua provincia de Las Villas, que traía dentro de sus propósitos: La toma de Santa Clara  que  culminaba todo un Plan Operativo perfectamente estudiado por el Che.<br>
+De hecho, la llegada a la antigua provincia de Las Villas significaba, no solo el cumplimiento de una parte de la Orden Militar emitida por el Comandante en Jefe Fidel Castro desde la Sierra Maestra, el 21 de agosto de 1958, de asignarle al comandante Ernesto Guevara la jefatura de las unidades rebeldes del Movimiento 26 de Julio que operaban en este territorio, tanto en el llano como en la Sierra, sino también la necesidad de cumplir otros objetivos, como detener el tránsito entre el occidente y el oriente de la Isla, y viceversa.<br>
+De igual modo, ocurrió con la búsqueda de la unidad revolucionaria, un factor importante y que se hizo difícil para el Che, pues al llegar a las alturas Trinidad-Sancti Spíritus, lo que históricamente hoy se conoce como Sierra del Escambray, encontró una realidad que, aunque no le era desconocida, si resultaba compleja: la presencia de varias organizaciones, e incluso dificultades hasta dentro del seno de las fuerzas del Movimiento 26 de Julio con la dirigencia de esta organización que operaba en las áreas urbanas.<br>
+Esta situación no era común en la zona oriental de la Isla donde el Movimiento 26 de Julio, combatía sin la presencia de otras organizaciones. Pero mientras que en Las Villas, hubo que hacer en el Escambray una intensísima labor a favor de la unidad revolucionaria, ya que existía un grupo dirigido por el comandante Eloy Gutiérrez Menoyo (Segundo Frente Nacional del Escambray), otro del Directorio Revolucionario (capitaneado por los comandantes Faure Chomón y Rolando Cubela), otro pequeño de la Organización Auténtica (OA), otro del Partido Socialista Popular (comandado por Félix Torres) y el Ejército Rebelde, cinco organizaciones diferentes actuando con mandos también diferentes y en una misma provincia.<br>
+Se hace lógico aclarar que en el macizo montañoso del Escambray sólo se encontraban tres organizaciones: el Movimiento 26 de Julio, el Directorio Revolucionario y el Segundo Frente Nacional del Escambray, pues la Organización Auténtica, se había fundido al Segundo Frente, mientras, la del Partido Socialista Popular operaba en la zona norte de la provincia y combatió al lado del comandante Camilo Cienfuegos con la Columna No. 2 "Antonio Maceo". De todas estas organizaciones, la única que nunca buscó y rechazó en todo momento la unidad revolucionaria, fue el Segundo Frente del Escambray.<br>
+Ya liberada Placetas, el Che estableció su comandancia en esa ciudad, y desde allí se organizaron las tomas de Remedios, entre el 25 y 26 de diciembre, y Caibarién, el 26, combate este último donde se contó con la colaboración de integrantes de la Columna No. 2.<br>
+Al desplegar el comandante Guevara todo este plan, había dejado a Santa Clara aislada del resto del territorio, no solo de la provincia, sino de todo el país, ya que las comunicaciones terrestres habían quedado interrumpidas, tanto por carretera como por ferrocarril, en este último caso por el derribo del puente de Calabaza, entre Placetas y Cabaiguán. Esta situación llevaba a la dictadura a optar por trasladar sus refuerzos por mar, bien por Cienfuegos al sur, o por Isabela de Sagua al norte, lo que le haría perder demasiado tiempo y a la vez le concedía ventajas a los rebeldes en este sentido, aun si lograban pasar, ya que las principales vías de acceso se encontraban controladas por las fuerzas revolucionarias. Otra vía sería la aérea, también difícil para ellos, pues no contaban con suficientes medios para tales fines.<br>
+De hecho, eran momentos sumamente difíciles para el régimen de Fulgencio Batista, pues parte de sus tropas se encontraban desmoralizadas, muchas de ellas ya no querían combatir e incluso, dentro de la alta oficialidad, se gestaba la traición al propio dictador, situación por él conocida, y sobre la que expresó que era gravísima.<br>
+Asimismo, la máxima dirigencia de la Revolución también veía el peligro de que se produjera una intervención estadounidense a la Isla. Incluso, ya en el mes de diciembre, los Estados Unidos luchaban por todos los medios para evitar el inminente triunfo de la Revolución Cubana.<br>
+La toma de Santa Clara, capital de la antigua provincia de Las Villas y tercera ciudad en importancia del país, con su tercera fortaleza militar, cobraba mucho significado, lo que cerraba un ciclo de análisis realizados por el Che, quien pensaba en ella hacía mucho tiempo, quizás desde antes de llegar al suelo villareño en octubre de 1958. Además, la victoria significaría el fin de la invasión rebelde iniciada en agosto de ese mismo año. Santa Clara, situada en el centro de la isla, con una extensión territorial de 1128 km2 y una población urbana de 85 678 habitantes, en esos momentos, significaba además, el mando militar y político administrativo de la antigua provincia de Las Villas, por ser la capital de ese territorio. Su toma podría prolongarse e incluso no ser tomada.<br>
+Para entonces, el comandante Guevara conocía la situación existente en Santa Clara, aunque no había estado en ella. Sabía que el enemigo fortificaba sus plazas militares con hombres y armas, y en atención a estas circunstancias analizó la mejor forma de llevar adelante la batalla donde demostró su genialidad militar.<br>
+Por tanto, el 27 de diciembre de 1958, el Che sostuvo una reunión en la habitación número 22 del Hotel Las Tullerías, de Placetas, a la que acudieron jefes de pelotones del Movimiento 26 de Julio y dirigentes del Directorio Revolucionario "13 de Marzo"; en ella dio a conocer, entre otras cosas, que al siguiente día, el 28, comenzaría el ataque a Santa Clara por parte de las fuerzas rebeldes. Esta reunión se desarrolló sobre las 8 de la noche del día mencionado.
+Por su parte, las fuerzas de la dictadura fueron retiradas de los diferentes lugares donde se encontraban destacadas y llevadas hasta Santa Clara, concentró a sus efectivos en los edificios más sólidos y de mayor altura y protegió varias de sus instalaciones con sacos de arena para amortiguar el inminente fuego rebelde.<br>
+Los miembros de la Columna 8 comenzaron a entrar a las inmediaciones de Santa Clara, por diferentes vías. La mayor parte de sus integrantes lo hicieron por un camino vecinal, poco transitado, que partía desde las inmediaciones de Placetas, en el lugar conocido por La Vallita, y que llegaba hasta las proximidades de la Universidad Central “Marta Abreu” de Las Villas. La decisión de trasladar a los rebeldes por ese lugar obedeció a las informaciones brindadas por Antonio Núñez Jiménez, al Che. Así, por la carretera a Camajuaní entraron fuerzas rebeldes de la Columna No. 8, y por la de Manicaragua, las del Directorio Revolucionario "13 de Marzo", y algunas fuerzas del Movimiento que se encontraban en las zonas de Mataguá y Minas Bajas. <br>
+Hay que aclarar que cuando se comenzó a preparar el ataque a la capital de la provincia, el comandante Faure Chomón designó al comandante Rolando Cubela Secade, para que condujera las tropas del Directorio que participarían en la batalla. Para ese fin, seleccionó la tropa más experimentada y mejor armada, con la finalidad de que pudieran cumplir la misión a ellos encomendada en la zona sudeste de la ciudad, y atacar el Cuartel 31 de la Guardia Rural "Miguel Jerónimo Gutiérrez", y el Cuartel del Servicio de Vigilancia de Carreteras, más conocido por Los Caballitos, para después avanzar hacia el Regimiento No. 3 "Leoncio Vidal". <br>
+Por otra parte, aún sin haber llegado la Columna No. 8 en su totalidad a Santa Clara, el pelotón del capitán Rogelio Acevedo, cumplió las órdenes del comandante Guevara: ocupar la Universidad Central “Marta Abreu” de Las Villas, lugar donde radicaría la primera comandancia rebelde y un Hospital de Sangre, y realizar una exploración por la carretera a Camajuaní, rumbo a la ciudad. Ambas decisiones fueron cumplidas en horas finales de la madrugada del 28 de diciembre.<br>
+En esa exploración, los rebeldes se toparon con un carro patrullero, en el lugar donde había quedado apostado el teniente Alberto Fernández Montes de Oca con su escuadra. El vehículo militar se dio a la fuga y comunicó de la presencia rebelde en Santa Clara.<br>
+Tras las orientaciones brindadas por el jefe de la Columna No. 8, partieron las tropas rebeldes por ambos lados de la carretera a Camajuaní, con dirección a Santa Clara, lugar en que, como se ha planteado, se encontraban los objetivos ocupados por la tiranía.<br>
+En ese trayecto, cercanos a la retransmisora de la estación de radio CMQ, los rebeldes fueron sorprendidos por un vehículo militar y a la vez por un grito de ¡La Guardia!     <br>
+Como toda acción armada produjo bajas en ambos bandos contendientes, y al de los rebeldes, le ocasionó la pérdida de tres de sus integrantes: Israel Santos Santos, Aníbal Arceo Fonseca y Miguel Diosdado Pérez Pimentel.<br>
+El avance rebelde no se detuvo, a pesar de los disparos realizados desde la Loma del  Capiro. Los soldados disparaban desde el Tren Blindado, vehículo que se encontraba protegido por una ladera de la referida elevación, situación esta que desconocía el Ejército Rebelde.<br>
+La presencia de este Tren Blindado en Santa Clara, era bien conocida por el comandante Guevara, y aún más, desde que este transporte militar era acondicionado en los talleres de reparación de locomotoras y automotores de Ciénaga, en La Habana, ya que obreros integrantes de una célula clandestina del Movimiento 26 de Julio, lo habían comunicado a la dirección provincial de la organización en el llano, la que lo informó al Comandante en Jefe, y Marcelo Fernández, en su condición de Coordinador Nacional, en viaje realizado a la antigua provincia de Las Villas, se lo hizo saber al Che.    <br>
+Sin lugar a dudas, los armamentos que portaba ese transporte militar eran superiores a las del Ejército Rebelde, y los disparos de sus integrantes desde las alturas del Capiro, ocasionaron la muerte de otros dos combatientes rebeldes, poco después de haberse producido las primeras bajas. Ellos fueron: Ramiro Santiago Rodríguez, invasor de la Columna No. 8 y Antonio Pérez González, quien se había incorporado a la tropa rebelde en la toma de Caibarién. <br>
+Por su parte, la aviación comenzó el ataque en la Loma del Capiro, y por la carretera a Camajuaní, y de igual modo, por la carretera a Manicaragua y las zonas cercanas al Escuadrón 31, lugar por donde entraron las tropas del Directorio Revolucionario "13 de Marzo". Esa arremetida obedecía a la petición realizada por el jefe del Regimiento "Leoncio Vidal". Para repeler el fuego enemigo que provenía de la Loma de Capiro, el comandante Guevara designó al capitán Luis Alfonso Zayas Ochoa con 50 hombres, y a los tenientes Alberto Fernández y Pablo Emilio Carmona, con 10 y 24 hombres, respectivamente. Si se compara la cifra de los integrantes del Ejército Rebelde, 84 en total, era mínima al lado de la tripulación del Tren Blindado, que ascendía a 408.<br>
+Como es conocido, la batalla en Santa Clara, comenzó el 28 de diciembre; sin embargo, algunas personas confunden esa fecha cuando leen el artículo del Che, en que planteaba: "El 29 de diciembre iniciamos la lucha". El jefe guerrillero, había dado la orden a varios de sus pelotones de que penetraran en la ciudad en horas de la noche del propio día 28, y al siguiente día comenzaría el combate con más fuerza dentro del perímetro urbano santaclareño, lo que queda probado porque fue el día en que más pérdidas humanas se produjeron, por haber arreciado los combates e intensificado más los ataques de la aviación.<br>
+En efecto, ya el 29 de diciembre, Santa Clara estaba en pleno combate, pues los rebeldes habían entrado a la ciudad, aunque en la Loma de Capiro continuaban enfrascados en el combate contra las tropas del Tren Blindado, mientras que las del Directorio Revolucionario lo hacían en el cuartel de Los Caballitos y el Escuadrón 31.<br>
+Tal fue el fuego rebelde en la Loma de Capiro que, en horas de la tarde, los soldados del Tren Blindado se refugiaron en ese vehículo y en retroceso salieron hacia el patio del ferrocarril, próximo al Regimiento Leoncio Vidal, única opción que les quedaba para moverse, pues como ya se ha planteado, días antes, el Che había ordenado el derrumbe de un puente para el cruce del ferrocarril sobre el río Calabaza.<br>
+El Comandante Guevara desde la noche del 28 había decidido interrumpir el paso de ese vehículo militar, para lo cual se valió del levantamiento de un tramo de la vía férrea con la utilización de un buldózer, en el área de la carretera a Camajuaní, próximo al puente de La Cruz, dentro de la ciudad y lugar de obligado paso para ese transporte.  Para darle cumplimiento a ese plan, el Che designó al capitán Ramón Pardo Guerra
+Tal y como se esperaba, el coche motor explorador se viró y llevó a que el tren se saliera de sus rieles; al estar paralizado el convoy, comenzó el ataque. Los rebeldes aprovecharon el piso de madera del vehículo y lo incendiaron con el lanzamiento de cocteles molotov, a la vez que se producían disparos. 
+Ante esa situación, el jefe de esa tripulación aceptó parlamentar con el mando rebelde, y poco tiempo después de sostener una conversación con el Che, avanzada la tarde del 29 de diciembre, se rindió. La última esperanza de Batista había quedado rota, porque no solo esperaba que con esas armas que trasladaba el tren se frenara el impulso rebelde, sino que la tripulación restablecería las comunicaciones rotas por las diferentes vías de comunicaciones existentes en el territorio.<br>
+En su desesperación, la aviación de la dictadura llegó a arrojar bombas hasta de 500 libras, en las cercanías de ese escenario, sin tener en cuenta la población civil que por allí residía. <br>
+Sin embargo, el mando rebelde determinó trasladar a los tripulantes del tren hacia Caibarién, donde se gestionaría  por radio con el mando enemigo, el embarque de los prisioneros con una fragata anclada frente a la costa.<br>
+De igual modo, ese mismo día 29, pero aproximadamente a las seis y treinta de la tarde, cayó en manos rebeldes el cuartel de Los Caballitos.
+La batalla continuaba y el día 30, el pelotón de Alberto Fernández, unido al de José Mendoza Argudín, rendían el Gobierno Provincial, actual Biblioteca Provincial "Martí", resistente edificio situado frente al parque Leoncio Vidal, lugar que resultaba difícil de tomar por encontrarse situado en áreas que ofrecían poca protección a los soldados rebeldes, pero donde no hubo que lamentar ninguna baja.<br>
+Los ametrallamientos y bombardeos continuaban. El Che, que había establecido su comandancia dentro de la ciudad de Santa Clara, desde el día 29, en el edificio del Distrito de Obras Públicas (actual Comité Provincial del PCC) no permanecía en ella; recorría los lugares donde se combatía, sin protegerse. Fue en uno de esos trayectos que conoció que el capitán Roberto Rodríguez Fernández, El Vaquerito, quien fuera jefe del Pelotón Suicida, había resultado mortalmente herido, incluso, llegó hasta el mismo lugar en que se había producido esa pérdida, muy cercano a la Estación de Policía, más conocida por Jefatura (hoy Secundaria Básica El Vaquerito).     <br>
+Este joven rebelde, no pudo ver el triunfo de su acción, pues cayó el 30 de diciembre, día en que miembros del pelotón al mando del capitán Rogelio Acevedo, lograron la rendición de la Cárcel Provincial. <br>
+Al siguiente día, el 31 de diciembre, se rindió la Jefatura y continuaban en combate el Escuadrón 31, el Palacio de Justicia y el Gran Hotel, aunque había dos lugares ocupados por la tiranía, en los que no se combatía: la clínica Marta Abreu y el Aeropuerto o Campo de Aviación, como era conocido por los santaclareños.  El Regimiento "Leoncio Vidal" permanecía sin ser atacado por las fuerzas rebeldes, para esa ocasión se esperaba marchar con todas las fuerzas unidas, después de someter a los objetivos que aún no se habían rendido.<br>
+El último día del año 1958, también lo sería para Fulgencio Batista en la presidencia de la República. Los acontecimientos armados en las antiguas provincias de Oriente y Las Villas, lo llevaron a la fuga del país, incluso, sin comunicárselo a varios de sus más allegados. Sin embargo, en Santa Clara, los coroneles de la tiranía Cornelio Rojas Fernández y Joaquín Casillas Lumpuy, jefes de la Policía y del Regimiento Leoncio Vidal, respectivamente, se vieron en peligro y emprendieron la fuga por temor a la justicia revolucionaria, tras conocer de la huida del general Batista. Frente a esa situación, el propio Casillas Lumpuy, designó al también coronel Cándido Hernández, como jefe del referido Regimiento.<br>
+Al conocer las fuerzas de la tiranía, al amanecer el 1ro de enero de 1959, que Batista había escapado, decayó más en ellos la moral combativa y comenzaron a rendirse. Por ejemplo, el Escuadrón 31 después de aproximadamente 94 horas de combate, cedió ante las tropas del Directorio Revolucionario 13 de Marzo. 
+La Audiencia, lugar en que los integrantes del pelotón del capitán Rogelio Acevedo con ayuda de jóvenes de la población que se incorporaron a esa agrupación, incendiaron el sótano de esa instalación el día 31, también lo hizo ese primer día del año 1959. <br>
+De igual modo depusieron sus armas, pero sin haber combatido, las fuerzas de la tiranía que se encontraban en la clínica Marta Abreu y el Aeropuerto; la primera mencionada, se rindió al teniente Emerio Reyes con su tropa; en cuanto a la segunda, el oficial de la dictadura que allí se encontraba con sus hombres, el teniente Serafín Gómez Gimerani, al conocer la fuga de Batista, decidió entregar esa instalación, por considerar inútil la resistencia. Asimismo sucedió con el Gran Hotel, el edificio más alto de la ciudad por aquel tiempo, en el cual se encontraban apostados 12 miembros del Servicio de Inteligencia Regimental (SIR), muchos de ellos francotiradores, los que amparados en la altura y estructura del edificio, ocasionaron muertes en la población civil. Después de presentar combate cejaron en su empeño y varios de los ocupantes de ese enclave fueron juzgados por sus crímenes días después.<br>
+Por tanto, solo quedaba en poder del enemigo el Regimiento No. 3 Leoncio Vidal, y para su toma se preparaban las tropas rebeldes. Cabe recordar que en ese enclave estaban concentradas armas, aproximadamente 1 300 efectivos militares, comunicaciones con el Estado Mayor General en La Habana y la máxima autoridad de esas tropas, en esos momentos, el coronel Cándido Hernández, el cual se encontraba en sustitución de Joaquín Casillas, como ya se ha planteado.
+A pesar de lo tenso de ese momento, la actuación del teniente del Ejército Rebelde, Hugo del Río Guerra, motivó una conversación entre el Regimiento Leoncio Vidal y el mando de la Columna 8. Luego se produjo la rendición.     <br>
+Santa Clara era libre y con ella toda la antigua provincia de Las Villas, hecho este que demostraba la estrategia militar desplegada por el comandante Ernesto Guevara, y a la vez quedaba finalizada la invasión rebelde iniciada en el Jíbaro, Sierra Maestra, el 31 de agosto de 1958.<br>
+Se hace lógico destacar la participación y colaboración del pueblo santaclareño con la tropa rebelde, que aún sin saber qué tiempo duraría la batalla, o si se lograba la victoria, colaboró no sólo con alimentos, sino con su participación directa al integrarse varios de ellos a las filas revolucionarias.<br>
+Como todo hecho bélico, hubo que lamentar la pérdida de vidas humanas, 54 en total; 13 del Ejército Rebelde, 18 de las fuerzas de la tiranía y 23 de la población civil, y si no se produjeron más, fue por la actuación del Ejército Rebelde, que insistía en que la población civil se resguardara, ya que ella desconocía cómo actuar ante un hecho de esa índole.<br>
+Sin lugar a dudas, la Batalla de Santa Clara, contribuyó al triunfo de la Revolución y demostró una vez más la genialidad militar del Che en su conducción, al sustituir la guerra de guerrillas por la de desgaste y mostrar en la práctica que este trascendental hecho "fue un acto de suprema audacia".    
+
+                     </p>
+                  </div>
+               </div>
+			<div class="ct-pop" style="display:none;">
+                  <div class="inner" >
+                     <span class="ct-popup__name" >La Batalla de Yaguajay</span>
+                     <p class="ct-popup__content" >
+                        Mientras las tropas de la Columna 8 y del Directorio Revolucionario 13 de Marzo consiguen la liberación de Fomento, Guayos, Cabaiguán y Sancti Spíritus, Manicaragua y Placetas, en la zona centro y sur, Camilo y sus hombres, en el norte,  también desplegaron una trascendental actividad hasta concentrar esfuerzos en Yaguajay, en cuyo cuartel encuentran una tenaz resistencia.<br>
+El Ejército Rebelde poseía un menor número de hombres con buen armamento, aunque mayor cantidad total que el enemigo si se cuenta la milicia campesina. En cuanto a la correlación en armas, el enemigo tenía efectivos superiores a los de los revolucionarios, pues para poder atacar con probabilidades de éxito a una tropa que está a la defensa, se necesita duplicar o triplicar su número en hombres y armamentos. El Ejército Rebelde no contaba con esa fuerza, aunque contaba con otra superior, que sobrepasaba los cálculos logísticos: su moral combativa, su disposición de lucha, así como el apoyo de la población.<br>
+El experimentado jefe guerrillero (Camilo), después de estudiar la situación, decide tomar el pueblo primero, es decir las posiciones que ocupaba el enemigo dentro de la población y luego el reducto militar.<br>
+El enclave militar era una sólida fortificación situada en una explanada, sin construcciones ni vegetación en unos cien metros a la redonda, lo que hacía extremadamente difícil su asalto. Las posiciones dentro del pueblo, sin embargo, eran más vulnerables, ya que los insurrectos podían acercarse a ellas protegidos por las construcciones aledañas. Camilo ordenó concentrar el mayor número de combatientes en esos objetivos para, una vez tomados, equilibrar la correlación de fuerzas contra los acuartelados.<br>
+Los rebeldes sitiaron primero los puntos fuertes del enemigo: el Ayuntamiento donde radicaba la jefatura de la Policía, el Hotel Plaza y la Planta Eléctrica, siendo estos los elementos iniciales de la batalla.<br>
+Al mando de la Guardia del Cuartel batistiano se encontraba el Mayor Roger Rojas, quien junto al Capitán Alfredo Abon Lee prepararon el reforzamiento y fortificación de defensa del cuartel, contaban con más de 350 efectivos y numerosas armas de alto calibre para aquel entonces, con los efectivos de las cuatro compañías antiguerrilleras que, al mando del capitán , llegaron desde Mayajigua la tarde-noche del 20 de diciembre. El primero de ellos dejó el mando a su segundo. <br>
+ Sin perder un momento, ya en horas de la mañana del 21, tropas al mando de Félix Torres y de la Columna Mixta de William Gálvez, en total unos 130 hombres, avanzan desde los centrales Narcisa y Victoria, toman posiciones en torno al cuartel y se despliegan en algunos lugares del pueblo. Esa propia noche son reforzados por un pelotón dirigido por el Capitán Antonio Sánchez Díaz (Pinares).<br>
+Al siguiente día Camilo ordena hacer una exploración para detectar las posiciones del enemigo. Se pudo establecer que había guardias en el Hotel Plaza, en el edificio del Ayuntamiento y en la Planta Eléctrica. El jefe rebelde elabora un plan que consistía en hostigar constantemente al adversario para mantenerlo en tensión y aumentar paulatinamente la presión con el propósito de rendirlo.<br>
+Al iniciar el fuego a sus posiciones desde la noche del 22 de diciembre, se logró que las avanzadas y patrullas existentes en el pueblo se retiraran. El 23 de diciembre, luego de conocer con exactitud la situación de los soldados y de concretar los últimos detalles, el Jefe decide estrechar el cerco y desalojarlo del pueblo. Con las primeras sombras de la noche se inicia el ataque. Mientras da instrucciones, recibe la visita del Che. Camilo monta en el jeep junto con su querido jefe y amigo, y con otros combatientes se dirige al batey de La Caridad. Allí analizan y acuerdan cómo desarrollar las acciones futuras. <br>
+ El jefe rebelde del MR-26-7 en la provincia coincide con el plan de Camilo y, a su vez, le informa que va a atacar a Remedios y Caibarién, para lo cual le solicita algunos hombres. Indica a su mejor alumno que debe permanecer allí para concluir la toma del cuartel; ambos coinciden en que será la posición más difícil si el enemigo, como parece hasta ese momento, se empeña en defenderlo.<br>
+A la hora de la retirada, Che, queriendo fastidiar a Camilo, le dice irónicamente:<br>
+- Voy a tené que mandarte mi pelotón suicida para ayudar a vos a tomar ese cuartelito.<br>
+Risueño e imitando la manera de hablar de su amigo, Camilo le pasa el brazo por el hombro y responde:<br>
+- Vos tené un pelotón suicida, pero toda mi columna es suicida... Mira que vos sos descarado, argentino cobardón... Tené que hacer eso, para que te saquen de tus apuros... Pero yo no lo necesito, porque no corro en los combates como vos... Andá, montate en el jeep y no te ocupés, que si tenés miedo, mándame a buscar.<br>
+- Está bien, chico... Pero acordate que yo soy tu profesor... – Expresa Guevara con la misma alegría.<br>
+Camilo lo abraza y responde con ternura...<br>
+- Tienes razón. Toda la vida lo serás.<br>
+El abrazo de Che no se hace esperar. Luego de la simpática y cariñosa despedida, Guevara sube al jeep y ya en marcha, le grita a su querido hermano:<br>
+- ¡Acordate de no hacer locuras, Camilucho...!<br>
+El 24 se intensifica el fuego. Los soldados que resistían en el Hotel Plaza y en el Ayuntamiento se repliegan hacia la Planta Eléctrica con la intención de seguir desde allí más hacia el cuartel. La mayoría lo logra, pero en el intento sufren tres muertos, seis heridos y nueve prisioneros. Entretanto, la situación dentro de la fortaleza sitiada se iba haciendo insostenible por la escasez de alimentos y la carencia de agua potable y de medicinas para curar a los heridos.<br>
+Próximas las diez de la mañana, el capitán Abón acepta una tregua a través de la Cruz Roja y aprovecha para proponerle a los rebeldes abandonar la plaza, pero con todos sus hombres y armamento. El "Chino" había recibido un mensaje del mando superior en el cual se instruía su evacuación por el embarcadero del central Nela a Santa Clara. <br>
+Mientras las fuerzas del Che logran avances impredecibles y se hace más cruento el hostigamiento a las posiciones enemigas en Santa Clara, la tropa de Camilo proseguía su combate en el cuartel de Yaguajay, bajo la incidencia de las bombas de la fuerza aérea batistiana, que en la mañana del 25 de diciembre lanza a los sitiados alimentos y parque, que en su mayor parte cae en manos guerrilleras. <br>
+En el transcurso de los once días de combate se pactaron dos treguas. En una de ellas el jefe rebelde, acompañado de su ayudante Nené López, y el capitán Ángel Frías se despojan de sus armas y se dirigen al encuentro con Abón Lee en el cuartel. El militar, que cortó un intento de asesinato a Camilo tramado por algunos guardias, recibió jovialmente a su adversario y le dijo campechano:<br>
+"… Caramba, compadre, desde Oriente vengo persiguiéndote…" y Camilo, también riéndose, le respondió: … "Sí, a veces detrás y otras delante, pero si quieres esto se acaba ahora mismo…". Ya en la oficina de Abón, este reitera la propuesta que ha hecho por la mañana al capitán Pinares, la cual, naturalmente, Camilo rechaza de plano, pues necesitaba las armas para reforzar al Che en Santa Clara.<br>
+Por una confusión se produjo la pérdida de la vida del joven combatiente rebelde Joaquín Panecas Consuegra, quien cumplía aquel mismo día 17 años. 
+Las acciones se incrementaron y aumentó el número de bajas del enemigo. Las estrategias lograron su objetivo, la construcción del Dragón 1 y el Dragón 2, blindado dotado de un lanzallamas para prenderle fuego al cuartel más el desvío de un tren con potentes cargas de dinamita para hacerlo explotar en el enclave militar, desempeñaron un papel importante en el decisivo ataque.    <br>
+ Lo más importante del día es la nueva visita de Che. Éste recomienda a Camilo Cienfuegos que mantenga la calma y no intente tomar por asalto el cuartel, pues eso originaría una gran pérdida de hombres. Él considera que puede dominar la situación de Santa Clara con las fuerzas bajo su mando, en cooperación con las del Directorio Revolucionario 13 de Marzo.<br>
+Se determinan los posibles lugares por donde los sitiados pueden recibir refuerzos y dirigirse en caso de que intentaran romper el cerco para ser evacuados. Esto sólo lo pueden hacer por algunos de los embarcaderos de los centrales situados en la costa norte, incluyendo los más cercanos a Camaguey.<br>
+Luego de retirarse el jefe de la Columna No 8 "Ciro Redondo", su colega de la "Antonio Maceo" ordena situar emboscadas en la carretera entre Mayajigua y Chambas, minar los puentes entre ambos pueblos, también los de los embarcaderos de los centrales Nela y Victoria, y situar personal en el aeropuerto de Mayajigua.<br>
+Las fuerzas batistianas en el cuartel de Yaguajay bajo el mando del capitán Abon Lee continúan cercadas el 28 de diciembre, en espera del prometido refuerzo que sus superiores le vaticinaban, mientras les inculcaban que resistieran.<br>
+En horas de la noche, Camilo se dirige a Santa Clara en unión de otros combatientes. Va a un cambio de impresiones, a analizar el desarrollo de la situación y en busca de una bazuca o un mortero, seguro de que con esa arma rendiría al cuartel.<br>
+Aunque está consciente de que no puede sacrificar hombres, se le nota ansioso por terminar de una vez el combate de Yaguajay. Se ratifica la misma táctica: no desesperarse, no sacrificar hombres. La marcha a occidente aún se mantiene, le reitera Che. Su querido compañero le informa del desarrollo de las acciones en la capital villareña, y le entrega una bazuca y un cañón antitanque, aunque este último requiere reparación; le promete, además, ir a visitarlo y llevarle un mortero.<br>
+A las ya mencionadas iniciativas durante la batalla, el comandante Camilo Cienfuegos sumó otras. Mandó a sacrificar a cerca de 50 animales en el perímetro inmediato del cuartel o dentro de sus muros, con lo cual la atmósfera en el recinto se hace irrespirable. Por instrucciones suyas se fabrican pequeñas granadas de fusil llamadas sputniks o M-26 que los rebeldes utilizan para golpear sin cesar al adversario, aunque con mayor efecto psicológico que destructivo. <br>
+Después ordena instalar altoparlantes por los que transmite el Himno Nacional, habla a los guardias y deja que los familiares de los sitiados los exhorten a deponer las armas. Nuevas treguas pedidas por Abón Lee reciben la misma exigencia de capitulación incondicional. Ahora también disparan contra el cuartel una bazuca y un mortero, los que multiplican la destrucción y el número de heridos.<br>
+Amanece el penúltimo día de 1958 y la situación dentro del cuartel de Yaguajay se hace cada vez insostenible, pero ante la terquedad del jefe de la plaza, la guarnición sigue resistiendo, aún cuando la moral de la tropa es baja.<br>
+Esa misma noche se realiza la visita, por tercera vez, del comandante Guevara acompañado de varios combatientes. El encuentro se efectúa en el batey del Narcisa.<br>
+Sesenta años atrás, un glorioso internacionalista vivaqueaba con su tropa en este propio batey, sufriendo la ignominia de un triunfo escamoteado y una independencia mediatizada, por la oportunista y rapaz intervención de los Estados Unidos. El General en Jefe del Ejército Libertador, Máximo Gómez, al finalizar la segunda Guerra de Independencia, en 1898, se vio obligado a permanecer en este territorio de Yaguajay hasta el 2 de enero de 1899. En esta ocasión, la historia no se repetiría: los jefes invasores serían los primeros en entrar triunfantes en La Habana.<br>
+Camilo le informa acerca del "Dragón I" y lo útil que puede ser fabricar varios para atacar posiciones situadas en llanazos, como el cuartel de Yaguajay. Che toma la idea como buena. A su vez, le informa de la situación en Santa Clara, del sitio del Escuadrón 31; aunque el regimiento y otras posiciones aún no han sido tomados, se mantienen cercados y considera que con las fuerzas existentes podrá hacerle morder el polvo de la derrota.<br>
+Entrega a su compañero de armas una bazuca con escaso parque y le promete mandarle al siguiente día un mortero con su tirador. El comandante Cienfuegos le solicita el envío de una avioneta para bombardear a los cercados, y Che le responde que se la mandará durante la tarde del próximo día. Camilo se ve impaciente, y nuevamente su jefe y hermano le pide calma.<br>
+ Un día después, la toma de Santa Clara y la rendición del cuartel de Yaguajay engrandecerían la hazaña de los invasores y abriría el camino para el recibimiento del enero luminoso de 1959. Camilo y Che emprenderían nuevas acciones, pero la estancia de ambos en suelo villareño contribuiría a reafirmar la solidez de una amistad eterna.<br>
+  La soldadesca de otros pequeños cuarteles y núcleos poblacionales de menor rango habiendo conocido de los éxitos de las tropas rebeldes en la campaña de Las Villas abandonaron sus posiciones, lo que facilitó la entrada de las tropas rebeldes y con ello la liberación total del territorio villareño. La misión asignada a los invasores fue cumplida.
+
+                     </p>
+                  </div>
+               </div>
+         </div>
+		 </div>
+      </div>
+   
+   </div>
+   </div>
+   
+<script>
+$(document).ready(function() {
+var indicecity = 2;
+      var city, map;
+      map = $('.ct-map');
+      city = map.find('.ct-city');
+      city.each(function(i) {
+        var button, that;
+        that = $(this);
+        button = that.find('.ct-city__button');
+		
+        return button.on('click', function() {
+		  $('.ct-plus').css('margin-top', '0px');
+		  
+		  indicecity = i+2;
+		  $('.ct-map > .ct-city img.ct-close').css('display', 'none');
+		  $('.ct-map > .ct-city img.ct-plus').css('display', 'block');
+          if ($('.ct-map > .ct-city:nth-child('+(i+2)+') img.ct-plus').css('display') == 'block') {
+            $('.ct-map > .ct-city:nth-child('+(i+2)+') img.ct-plus').css('display', 'none');
+            $('.ct-map > .ct-city:nth-child('+(i+2)+') img.ct-close').css('display', 'block');
+            
+          } else {
+            $('.ct-map > .ct-city:nth-child('+(i+2)+') img.ct-plus').css('display', 'block');
+            $('.ct-map > .ct-city:nth-child('+(i+2)+') img.ct-close').css('display', 'none');
+          }
+
+
+          //next back ciudad
+          $('#dercli').css('visibility','visible');
+	      $('#izqcli').css('visibility','visible');
+          if(indicecity == 2){
+		    $('#izqcli').css('visibility','hidden');
+	      }
+	      if(indicecity == 18){
+		    $('#dercli').css('visibility','hidden');
+	      }
+          //fin next back ciudad
+
+          $('.ct-city-alert > div').css('display', 'none');
+          if ($('.ct-city-alert > div:nth-child('+(i+1)+')').css('display') == 'block') {
+            $('.ct-city-alert > div:nth-child('+(i+1)+')').css('display', 'none');
+            return map.removeClass('popup-open');
+          } else {
+            $('.ct-city-alert > div:nth-child('+(i+1)+')').css('display', 'block');
+            return map.addClass('popup-open');
+          }
+
+
+
+
+        });
+      });
+	  
+	  
+	  
+	  $('#ex2').zoom({ on:'grab', touch: true, onZoomIn: function(){
+	        $('.ct-city').css('display', 'none');
+	    },
+		onZoomOut: function(){
+		    $('.ct-city').css('display', 'block');
+		},
+	  });
+	  
+	  
+	  $('#dercli').on('click', function() {
+	    indicecity = indicecity+1;
+	    $('#dercli').css('visibility','visible');
+	    $('#izqcli').css('visibility','visible');
+        
+	    if(indicecity <= 18){
+		    $('.ct-map > .ct-city:nth-child('+(indicecity)+') img.ct-plus').click();
+		   
+	    }
+	    if(indicecity == 18){
+		    $('#dercli').css('visibility','hidden');
+	    }
+	 }); 		   
+	  
+	  
+	  $('#izqcli').on('click', function() {
+	    indicecity = indicecity-1;
+	    $('#dercli').css('visibility','visible');
+	    $('#izqcli').css('visibility','visible');
+	    
+	    if(indicecity >= 2){
+		    $('.ct-map > .ct-city:nth-child('+(indicecity)+') img.ct-plus').click();
+	    }
+	    if(indicecity == 2){
+		    $('#izqcli').css('visibility','hidden');
+	    }
+      });
+	   
+	   $('.ct-map > .ct-city:nth-child('+(2)+') img.ct-plus').click();
+	   //$('.ct-city-alert > div:nth-child('+(1)+')').css('display', 'block');
+	  
+	  
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Basic fotorama</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <!-- jQuery -->
+  <script src="./js/jquery.min.js"></script>
+
+  <!-- Fotorama -->
+  <link href="css/fotorama.css" rel="stylesheet">
+  <script src="js/fotorama.js"></script>
+  <script src='js/jquery.zoom.js'></script>
+  <!-- Just don’t want to repeat this prefix in every img[src] -->
+  <style>
+        body{
+          max-width: 700px;
+          margin: auto;
+        }
+
+		/* styles unrelated to zoom */
+		* { border:0; margin:0; padding:0; }
+		p { position:absolute; top:3px; right:28px; color:#555; font:bold 13px/1 sans-serif;}
+
+		/* these styles are for the demo, but are not required for the plugin */
+		.zoom {
+			display:inline-block;
+			position: relative;
+		}
+
+		/* magnifying glass icon */
+		.zoom:after {
+			content:'';
+			display:block;
+			width:33px;
+			height:33px;
+			position:absolute;
+			top:0;
+			right:0;
+			background:url(icon.png);
+		}
+
+		.zoom img {
+			display: block;
+		}
+
+		.zoom img::selection { background-color: transparent; }
+
+		#ex2 img:hover { cursor: url(grab.cur), default; }
+		#ex2 img:active { cursor: url(grabbed.cur), default; }
+
+  .toptitle{
+  font-weight: 600 !important;
+font-family: Arial !important;
+font-size: 20px !important;
+padding: 0 5%;
+margin-top: 10px;
+line-height: 1;
+margin-bottom: 10px;
+  }
+  
+  .fotorama__caption__wrap{
+	line-height: 1.2;
+  }
+  </style>
+</head>
+
+<body>
+<h3 class="toptitle">Galería de Imágenes de la Campaña en Las Villas</h3>
+<!-- Fotorama -->
+
+<div class="fotorama" data-allowfullscreen="native" data-nav="thumbs" data-width="700" data-ratio="700/467" data-max-width="100%">
+  <img src="img/orden_militar.jpg" data-caption='Orden Militar, de puño y letra del Comandante en Jefe, donde se nombra a Camilo Cienfuegos Jefe de la Columna No. 2 "Antonio Maceo".'>
+  <img src="img/recorrido_las_villas.jpg" data-caption="Recorrido de las columnas desde la Sierra Maestra hasta su arribo a Las Villas.">
+  <img src="img/mapa_frenteslasvillas.jpg" data-caption="Frentes guerrilleros en la antigua provincia de Las Villas.">
+  <img src="img/mapa_lasvillas_1958.jpg" data-caption="La antigua provincia de Las Villas, escenario de grandes combates.">
+  <img src="img/finca_el_toro.jpg" data-caption='Batey de la finca "El Toro", donde la columna estableció un campamento temporal.'>
+  <img src="img/caballete.jpg" data-caption="Reconstrucción del Campamento de Caballete de Casa.">
+  <img src="img/felixtorres.jpg" data-caption="El comandante Félix Torres (al centro), junto a los comandantes Abrahantes y Acosta.">
+  <img src="img/puentefalcon.jpg" data-caption="Puente destruido por las fuerzas rebeldes el 16 de diciembre de 1958.">
+  <img src="img/tullerias.jpg" data-caption="Fachada de lo que fue el hotel Las Tullerías, en Placetas, desde donde se acordó y planificó la batalla de Santa Clara.">
+  <img src="img/fomento.jpg" data-caption="Gráfico del Combate de Fomento.">
+  <img src="img/guayos.jpg" data-caption="Plano del combate de Guayos.">
+  <img src="img/cabaiguan.jpg" data-caption="Plano del combate de Cabaiguán.">
+  <img src="img/remedios.jpg" data-caption="Plano del combate de Remedios.">
+  <img src="img/tren.jpg" data-caption="El descarrilamiento del tren blindado en Santa Clara asestó el golpe final a la tiranía.">
+  <img src="img/joborosado.jpg" data-caption='Campamento permanente del destacamento "Máximo Gómez", comandado por Félix Torres. '>
+  <img src="img/audiencia.jpg" data-caption="Boquete producido por la metralla en una pared de la Audiencia.">
+  <img src="img/zuluetaprisioneros.jpg" data-caption="Camilo acompañado por integrantes de su columna, durante la entrega de prisioneros en Zulueta, el 14 de diciembre de 1958.">
+  <img src="img/elescribano.jpg" data-caption="En la madrugada del 9 de octubre, el Che decide establecer su primer campamento en suelo espirituano en el lugar conocido como El Tamarindo, en la finca El Escribano.">
+  <img src="img/eltoro.jpg" data-caption="La columna 8 establece campamento en el monte Blanquizal, en la finca El Toro, esa noche reanudaron la marcha tomando rumbo noroeste a campo traviesa y a 2.5 km cruzaron el camino del Cedro.">
+  <img src="img/fincato.jpg" data-caption="Che y su columna acampan en Finca Marianao.">
+  <img src="img/montequemado.jpg" data-caption="Continúa la marcha por la finca Cañones hasta el batey La Barquilla, para seguir rumbo norte por el camino que conduce al batey de Peralejo hasta llegar a Monte Quemado, donde establecieron campamento, ya amaneciendo. ">
+  <img src="img/mapacaballete.jpg" data-caption="Mapa del recorrido por la provincia de Las Villas hasta Caballete de Casa.">
+  <img src="img/guinia.jpg" data-caption='Tropas del Directorio Revolucionario "13 de Marzo" en Güinía de Miranda, con el Comandante Faure Chomón al frente.'>
+  <img src="img/planinvasion.jpg" data-caption="Desde  finales de 1957, Fidel ya concebía la formación de nuevas columnas fuera de la Sierra Maestra, en 1958 se planifica la invasión.">
+  <img src="img/fidel_che_sierra.jpg" data-caption="Los Comandantes Fidel Castro y Ernesto Guevara en la Sierra Maestra.">
+  <img src="img/elsalto.jpg" data-caption="Campamento del comandante Camilo Cienfuegos en la Sierra Maestra, desde donde partió la Columna Invasora No. 2.">
+  <img src="img/salidas_columnas.jpg" data-caption="Mapa que muestra el inicio de la invasión desde dos puntos de la región de Manzanillo, El Salto y El Jíbaro.">
+  <img src="img/camiloLV.jpg" data-caption="El comandante Camilo Cienfuegos en Las Villas, junto al combatiente Rodolfo Vázquez">
+  <img src="img/camilo15.jpg" data-caption='La ejemplar ejecutoria de Camilo le ganó el título de "Héroe de Yaguajay".'>
+  <img src="img/camilo_cienfuegos.jpg" data-caption='Camilo es proclamado "Hijo Adoptivo" de Zulueta. '>
+  <img src="img/pedrero.jpg" data-caption="Mediante el Pacto de El Pedrero quedaría concretada la unidad revolucionaria entre el Movimiento 26 de Julio y el Directorio Revolucionario 13 de Marzo. ">
+  <img src="img/directorio13.jpg" data-caption="Fuerzas del Directorio Revolucionario “13 de marzo” durante la lucha guerrillera. ">
+  <img src="img/che7.jpg" data-caption="La rendición del cuartel convirtió a Fomento en el primer municipio libre de la región central de Cuba, iniciándose así la Campaña de Las Villas.">
+  <img src="img/che14.jpg" data-caption="El Che se fractura el brazo al saltar una tapia, durante la liberación de Cabaiguán,  concluye la campaña con este inconveniente">
+  <img src="img/chomon.jpg" data-caption="El Che junto a Faure Chomón, del Directorio Revolucionario “13 de marzo”.">
+  <img src="img/armando_acosta.jpg" data-caption="El capitán Armando Acosta, designado por el Che para asumir la liberación de Sancti Spíritus, acompañado por otros combatientes.">
+  <img src="img/placetas.jpg" data-caption="Miembros del Ejército Rebelde recorren triunfalmente las calles de Placetas.">
+  <img src="img/vaquerito4.jpg" data-caption="Miembros del Pelotón Suicida ante la cámara, después de haber tomado el pueblo de Remedios.">
+  <img src="img/vaquerito5.jpg" data-caption="El Vaquerito en Caibarién junto a su padre (vestido de civil) y varios miembros del Pelotón Suicida.">
+  <img src="img/santodomingo.jpg" data-caption="El Ejército Rebelde, con Víctor Bordón al frente, por las calles de Santo Domingo.">
+  <img src="img/uclv.jpg" data-caption="Tropas del Ejército Rebelde en la Universidad Central de Las Villas.">
+  <img src="img/escuadron31.jpg" data-caption="Momento de la rendición del Escuadrón 31 de la Guardia Rural a fuerzas del Directorio Revolucionario 13 de Marzo.">
+  <img src="img/capiro.jpg" data-caption="La Loma del Capiro fue un escenario importante en la Batalla de Santa Clara.">
+  <img src="img/camilo25.jpg" data-caption="La soldadesca batistiana tras su derrota frente a la población de Yaguajay.">
+  <img src="img/camilo20.jpg" data-caption='Por iniciativa de Camilo fueron construidos el "Dragón 1" y el "Dragón 2", tractores recubiertos con chapas metálicas para apoyar las acciones militares.'>
+
+</div>
+  <!-- button onclick="ampliar()">ampliar</button -->
+<div class="galeria">
+
+</div>
+
+<div class="ampliado" style="display: none;">
+  <button onclick="cerrar()">cerrar</button>
+  <span class='zoom' id='ex2' style="width: 100%;">
+		<img src='img/uno.jpg' style="width: 100%;"/>
+	</span>
+</div>
+
+<script>
+
+function ampliar(){
+/*
+$('.galeria').css('display','none');
+$('.ampliado').css('display','block');
+
+var urlimg = $('div.fotorama__active > img').attr('src');
+$('#ex2  img').attr('src', urlimg);
+
+$('#ex2').zoom({ on:'grab', touch: true, magnify:  2 });
+*/
+}
+function cerrar(){
+/*
+$('.galeria').css('display','block');
+$('.ampliado').css('display','none');
+*/
+}
+
+</script>
+</body>
+</html>

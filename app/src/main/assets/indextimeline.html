@@ -1,0 +1,848 @@
+﻿<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>CSS3 Timeline</title>
+  
+  
+      <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      /* eee9dc -------------------------------------
+ * For horizontal version, set the
+ * $vertical variable to false
+ * ------------------------------------- */
+/* -------------------------------------
+ * General Style
+ * ------------------------------------- */
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+  font-size: 100%;
+  font-family: "Noto Sans", sans-serif;
+  /*color: #03709a;*/
+  /*background: #ffffff;*/
+  color: black;
+  background: white;
+}
+
+h2 {
+  margin: 1em 0 0 0;
+  font-size: 1.5em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* -------------------------------------
+ * timeline
+ * ------------------------------------- */
+#timeline {
+  list-style: none;
+  margin: 30px 0 30px 15px;
+  padding-left: 30px;
+  border-left: 8px solid #03709a;
+}
+#timeline li {
+  margin: 15px 0;
+  position: relative;
+}
+#timeline p {
+  margin: 35px 0 15px;
+}
+
+.date {
+  margin-top: 10px;
+  top: 50%;
+  left: -70px;
+  font-size: 0.85em;
+  line-height: 20px;
+  position: absolute;
+  padding: 0px 5px;
+  color: #ffffff;
+  background-color: #03709a;
+}
+
+.circle {
+  margin-top: -20px;
+  top: 50%;
+  left: -44px;
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border: 5px solid #03709a;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+}
+
+.content {
+  /*max-height: 20px;*/
+  padding: 55px 20px 0;
+  border-color: transparent;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 0.5em;
+  position: relative;
+}
+.content:before, .content:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: solid transparent;
+  position: absolute;
+  pointer-events: none;
+  right: 100%;
+}
+.content:before {
+  border-right-color: inherit;
+  border-width: 20px;
+  top: 50%;
+  margin-top: -30px;
+}
+.content:after {
+  /*border-right-color: #ffffff;*/
+  border-width: 17px;
+  top: 50%;
+  margin-top: -17px;
+}
+.content p {
+  max-height: 0;
+  color: transparent;
+  text-align: justify;
+  word-break: break-word;
+  hyphens: auto;
+  overflow: hidden;
+}
+
+label {
+  font-size: 1.2em;
+  position: absolute;
+  z-index: 100;
+  cursor: pointer;
+  top: 20px;
+  transition: transform 0.2s linear;
+  margin-left: 20px;
+  line-height: 1;
+}
+
+.radio {
+  display: none;
+}
+
+.radio:checked + .relative label {
+  cursor: auto;
+  transform: translateX(42px);
+  margin-left: 0px !important;
+  margin-right: 45px;
+  
+}
+.radio:checked + .relative .circle {
+  background: #f98262;
+}
+.radio:checked ~ .content {
+  /*max-height: 250px;*/
+  border-color: black;
+  margin-right: 20px;
+  transform: translateX(20px);
+  transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
+}
+.radio:checked ~ .content p {
+  max-height: 100%;
+  color: black;
+  transition: color 0.3s linear 0.3s;
+}
+/*
+@media screen and (max-width: 767px) {
+  #timeline {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+  }
+  #timeline li {
+    margin: 50px 0;
+  }
+
+  label {
+    width: 85%;
+    font-size: 1.1em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    transform: translateX(18px);
+  }
+
+  .content {
+    padding-top: 80px;
+    border-color: #03709a;
+  }
+  .content:before, .content:after {
+    border: solid transparent;
+    bottom: 100%;
+  }
+  .content:before {
+    border-bottom-color: inherit;
+    border-width: 17px;
+    top: -16px;
+    left: 50px;
+    margin-left: -17px;
+  }
+  .content:after {
+    border-bottom-color: black;
+    border-width: 20px;
+    top: -20px;
+    left: 50px;
+    margin-left: -20px;
+  }
+  .content p {
+    font-size: 0.9em;
+    line-height: 1.4;
+  }
+
+  .circle, .date {
+    display: none;
+  }
+}
+*/
+
+/* -------------------------------------
+ * mobile phones (vertical version only)
+ * ------------------------------------- */
+
+.toptilte{
+  font-weight: 600 !important;
+  font-family: Arial !important;
+  font-size: 20px !important;
+  margin-top: 10px;
+  line-height: 1;
+  }
+
+
+.content img {
+    display: none;
+    max-width: 100%;
+}
+.radio:checked + .relative + .content img {
+    display: block !important;
+    margin-bottom: 15px;
+}
+
+
+    </style>
+
+    <script src="./js/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+
+<h3 class="toptilte">Cronología Campaña de Las Villas</h3>
+<ul id='timeline'>
+  <li class='work'>
+    <input class='radio' id='work5' name='works' type='radio' checked>
+    <div class="relative">
+      <label for='work5'>Fidel se reúne con Camilo y Che</label>
+      <span class='date'>10/08/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Fidel Castro se reúne con los comandantes Camilo Cienfuegos y Ernesto Guevara y les explica el plan invasor. Se inició la formación de las columnas: Antonio Maceo y Ciro Redondo. 
+      </p>
+      <img src="img/planinvasion.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work4' name='works' type='radio'>
+    <div class="relative">
+      <label for='work4'>Orden militar a Camilo Cienfuegos</label>
+      <span class='date'>18/08/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Fidel Castro emitió la orden militar que designaba a Camilo Cienfuegos para conducir una columna rebelde desde la Sierra Maestra hasta Pinar del Río, en cumplimiento del plan estratégico del Ejército Rebelde.
+      </p>
+      <img src="img/ordenmilitarcamilo.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work3' name='works' type='radio'>
+    <div class="relative">
+      <label for='work3'>Orden Militar a Ernesto Guevara</label>
+      <span class='date'>21/08/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Este día Fidel Castro, Comandante en Jefe del Ejército Rebelde asigna al comandante Ernesto Guevara la misión de conducir desde la Sierra Maestra hasta la provincia de Las Villas una columna y operar en ese territorio con el plan estratégico del Ejército Rebelde. 
+      </p>
+      <img src="img/fidel_che_sierra.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work2' name='works' type='radio'>
+    <div class="relative">
+      <label for='work2'>Partida de la columna 2 Antonio Maceo</label>
+      <span class='date'>21/08/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        La  columna  2  Antonio  Maceo, dirigida por el Comandante Camilo Cienfuegos,  partió  de  El  Salto, en la Sierra Maestra,  para  iniciar  la  invasión  a Occidente. 
+      </p>
+      <img src="img/elsalto.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work1' name='works' type='radio'>
+    <div class="relative">
+      <label for='work1'>Partida de la columna 8 Ciro Redondo</label>
+      <span class='date'>31/08/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Inicia	la	campaña	invasora	la	columna 8 Ciro Redondo, al mando del comandante Ernesto Guevara. 
+      </p>
+      <img src="img/salida_columnas.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work6' name='works' type='radio'>
+    <div class="relative">
+      <label for='work6'>La columna 2 Antonio Maceo llega a Las Villas </label>
+      <span class='date'>7/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Arribo de la columna 2 Antonio Maceo, conducida por el Comandante Camilo Cienfuegos, a territorio villaclareño, después de atravesar el río Jatibonico para hacer alto y campamento en Llanada de Alunao. 
+      </p>
+      <img src="img/camiloLV.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work7' name='works' type='radio'>
+    <div class="relative">
+      <label for='work7'>Camilo llega a Jobo Rosado </label>
+      <span class='date'>08/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        La columna 2 dirigida por Camilo Cienfuegos llega al Campamento permanente del destacamento "Máximo Gómez" en Jobo Rosado, allí se reúne con Félix Torres y sus hombres.
+      </p>
+      <img src="img/felixtorres.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work8' name='works' type='radio'>
+    <div class="relative">
+      <label for='work8'>Che establece campamento en El Escribano</label>
+      <span class='date'>09/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>El Che establece su campamento en el lugar conocido como El Tamarindo, en la finca El Escribano, hoy territorio de La Sierpe, en la provincia de Sancti Spíritus. 
+      </p>
+      <img src="img/elescribano.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work9' name='works' type='radio'>
+    <div class="relative">
+      <label for='work9'>La columna 8 inicia el cruce del río Jatibonico </label>
+      <span class='date'>11/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        A pesar del acoso y constante hostigamiento de las fuerzas de la dictadura, los integrantes de la Columna 8 prosiguen avanzando, y en horas de la noche llegan hasta el río Jatibonico del Sur, en esa época limite natural entre Las Villas y Camagüey, e inician su cruce. 
+      </p>
+      <img src="img/rio_jatibonico_sur.jpg">
+    </div>
+  </li>
+  
+  <li class='work'>
+    <input class='radio' id='work10' name='works' type='radio'>
+    <div class="relative">
+      <label for='work10'>La columna 8 Ciro Redondo llega a Las Villas</label>
+      <span class='date'>12/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        La columna 8 Ciro Redondo, dirigida por el Comandante Ernesto Guevara, entró en territorio de Las Villas.
+      </p>
+
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work11' name='works' type='radio'>
+    <div class="relative">
+      <label for='work11' style="font-size: 1.1em;">La columna 8 establece campamento en la finca El Toro.</label>
+      <span class='date'>12/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Se estableció campamento en el monte Blanquizal, en la finca El Toro, esa noche reanudaron la marcha tomando rumbo noroeste a campo traviesa y a 2.5 km cruzaron el camino del Cedro.
+      </p>
+      <img src="img/finca_el_toro.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work12' name='works' type='radio'>
+    <div class="relative">
+      <label for='work12'>La columna 8 llega a Monte Quemado</label>
+      <span class='date'>13/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Continúa la marcha por la finca Cañones hasta el batey La Barquilla, para seguir rumbo norte por el camino que conduce al batey de Peralejo hasta llegar a Monte Quemado, donde establecieron campamento, ya amaneciendo. Esa noche recorrieron 25 km. Se dedicó el día a crear condiciones para cruzar esa noche en botes el río Zaza.
+      </p>
+      <img src="img/montequemado.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work13' name='works' type='radio'>
+    <div class="relative">
+      <label for='work13'>Cruce del río Zaza</label>
+      <span class='date'>14/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Esa madrugada la columna 8 cruzó el Zaza por el paso de Las Guásimas.
+      </p>
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work14' name='works' type='radio'>
+    <div class="relative">
+      <label for='work14'>Combate en Montes de La Caridad  </label>
+      <span class='date'>15/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Combate de fuerzas de la columna invasora al mando de Camilo Cienfuegos y fuerzas de la tiranía en los montes de la Caridad, norte villaclareño. 
+      </p>
+      <img src="img/camilo15.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work15' name='works' type='radio'>
+    <div class="relative">
+      <label for='work15'>Continúa el camino hacia el Escambray </label>
+      <span class='date'>15/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        La columna se mantuvo caminando todo esa madrugada, a las 5 de la mañana acamparon en la finca Marianao.
+      </p>
+      <img src="img/fincacantu.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work16' name='works' type='radio'>
+    <div class="relative">
+      <label for='work16'>Campamento en Finca Cantú  </label>
+      <span class='date'>16/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        La columna 8 cruzó la carretera de Trinidad a Sancti Spíritus y llegó hasta la falda de la loma del Obispo y prosiguió hasta Finca Cantú donde estableció campamento, alrededor de las 10 de la mañana.
+      </p>
+      <img src="img/mapacatu.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work17' name='works' type='radio'>
+    <div class="relative">
+      <label for='work17'>El Che se instala en Caballete de Casa </label>
+      <span class='date'>16/10/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        El Che instala la Comandancia de la columna primero en Gavilanes y después en Caballete de Casa, en la zona montañosa de la provincia de Las Villas. En el transcurso de los siguientes días, en coordinación con otras fuerzas revolucionarias que también luchaban en esa provincia, continuó desarrollando la ofensiva rebelde en esta zona central de Cuba. 
+      </p>
+      <img src="img/mapacaballete.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work18' name='works' type='radio'>
+    <div class="relative">
+      <label for='work18'>Primer ataque al poblado de Zulueta. </label>
+      <span class='date'>24/11/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Ataque victorioso al poblado de Zulueta. Fue una acción conducida por el Comandante Camilo Cienfuegos, que logró tomar el cuartel tras asalto y luego se retiró del escenario con la promesa de regresar.
+      </p>
+      <img src="img/camilo_cienfuegos.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work19' name='works' type='radio'>
+    <div class="relative">
+      <label for='work19'>Ataque y liberación de Güinía de Miranda </label>
+      <span class='date'>26-27/10/58</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Ataque y liberación de Güinía de Miranda, primera acción guerrillera con fuerzas del ejército Rebelde y el Directorio Revolucionario 13 de marzo.
+		En la noche del 26 al 27 de octubre de 1958, fuerzas del ejército Rebelde y el Directorio Revolucionario 13 de marzo, atacaron y tomaron el poblado de Güinía de Miranda, en plena montaña villaclareña. Así se demostraba que los combatientes recién llegados al Escambray estaban ya en disposición de acometer empeños mayores, y que era posible enfrentar y derrotar al ejército de la tiranía en sus propios cuarteles.
+      </p>
+      <img src="img/guinia.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work20' name='works' type='radio'>
+    <div class="relative">
+      <label for='work20'>Ofensiva de El Pedrero </label>
+      <span class='date'>27/11/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Inicio de la Ofensiva de El Pedrero; operación militar desplegada por la tiranía con fuerzas y medios a gran escala. Fue aprobada el 23 del propio mes y se extendió hasta el 4 de diciembre. Concluyó como un rotundo fracaso, aumentando el prestigio de las fuerzas revolucionarias.
+      </p>
+      <img src="img/el-che-en-el-escambray-1.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work21' name='works' type='radio'>
+    <div class="relative">
+      <label for='work21'>Firma del Pacto de El Pedrero </label>
+      <span class='date'>1/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Firma de el Pacto de El Pedrero, que selló la unidad entre el 26 de julio y el Directorio revolucionario 13 de marzo, como resultado de las gestiones y estrategia unitaria del comandante Ernesto Guevara. Al mismo se sumó posteriormente el Partido Socialista Popular. 
+      </p>
+      <img src="img/pedrero.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work22' name='works' type='radio'>
+    <div class="relative">
+      <label for='work22'>Liberación de Báez</label>
+      <span class='date'>16/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Las fuerzas del Directorio Revolucionario "13 de Marzo" sitiaron el cuartel de la tiranía en el poblado de Báez. Su guarnición defensora lo abandonó sin acción bélica.  
+      </p>
+      <img src="img/directorio13.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work23' name='works' type='radio'>
+    <div class="relative">
+      <label for='work23'>Derribo del puente de Falcón</label>
+      <span class='date'>16/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Se destruyó el puente existente sobre el río Sagua la Chica, en Falcón, a unos kilómetros de Santa Clara, así se impedía el avance de las tropas enemigas desde y hacia el este. 
+      </p>
+      <img src="img/puentefalcon.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work24' name='works' type='radio'>
+    <div class="relative">
+      <label for='work24'>Inicio de la Campaña de Las Villas  </label>
+      <span class='date'>16/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Se inició la Ofensiva de Las Villas como secuencia de acciones liberadoras que condicionarían al triunfo del 1ro de enero de 1959 en esta provincia. En la pelea fue derribado el puente de Falcón y se inicio el combate por la liberación de Fomento. En los días posteriores igualmente otros puentes (Calabazas, Río Camajuaní, La Trinchera) serían dañados, lo que interrumpió importantes vías de comunicación. 
+      </p>
+      <img src="img/che_en_las_villas.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work25' name='works' type='radio'>
+    <div class="relative">
+      <label for='work25'>Liberación de Fomento </label>
+      <span class='date'>18/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Victoria rebelde y toma del poblado de Fomento, primero de la campaña ofensiva y uno de los más férreos combates en la última etapa de luchas en el territorio central. 
+      </p>
+      <img src="img/che7.jpg">
+    </div>
+  </li>
+  
+  
+  
+  <li class='work'>
+    <input class='radio' id='work26' name='works' type='radio'>
+    <div class="relative">
+      <label for='work26'>Liberación de Zulueta</label>
+      <span class='date'>21/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Segundo ataque a Zulueta y liberación definitiva de Zulueta. Cumpliendo la palabra empeñada, los rebeldes al mando de Camilo Cienfuegos tomarán el poblado por segunda ocasión, coincidiendo este hecho con el inicio de la batalla de Yaguajay. 
+      </p>
+      <img src="img/camilo.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work27' name='works' type='radio'>
+    <div class="relative">
+      <label for='work27'>Plenaria Azucarera en armas  </label>
+      <span class='date'>20-21/12/58</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Desarrollo de la Plenaria Azucarera en Armas con presencia de representantes de obreros azucareros de las zonas liberadas y del resto del país, desde Camagüey hasta Pinar del Río, transcurrió en el poblado de General Carrillo, en el Frente Norte. Los acuerdos tomados respondían a las principales demandas de los obreros del sector en aquellos años de tiranía, y a la necesidad de combatir al régimen con la participación en la huelga general revolucionaria en todos los centrales y con el apoyo al Ejército Rebelde en el acopio de armas, ropas, zapatos, dinero, medicinas y alimentos.
+      </p>
+      <img src="img/congreso-azucarero.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work28' name='works' type='radio'>
+    <div class="relative">
+      <label for='work28'>Liberación de Guayos y Cabaiguán </label>
+      <span class='date'>21-22/12/58</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Liberación en sucesión de los poblados de Guayos y Cabaiguán en la dirección este, dichas acciones abrieran la puertas hacia la toma de Sancti Spíritus. En Cabaiguán el comandante Guevara se fracturó un brazo y con esta imagen concluyó la batalla de Santa Clara. 
+      </p>
+      <img src="img/che14.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work29' name='works' type='radio'>
+    <div class="relative">
+      <label for='work29'>Liberación de Manicaragua </label>
+      <span class='date'>23/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Fuerzas integrantes del comando Román Pando Ferrer del Directorio Revolucionario 13 de Marzo, realizaron exitosamente la toma del poblado de Manicaragua, que había sido reforzado con soldados destacados en Mataguá, tomado la víspera. Esta victoria significó el dominio de los accesos por el sur hacia Santa Clara. 
+      </p>
+      <img src="img/chomon.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work30' name='works' type='radio'>
+    <div class="relative">
+      <label for='work30'>Liberación de Placetas </label>
+      <span class='date'>23/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Fuerzas combinadas del Ejército Rebelde, del Directorio Revolucionario  13 de Marzo y del Movimiento revolucionario 26 de Julio, combatieron y liberaron al poblado de Placetas, coincidiendo con la liberación de Manicaragua. El propio comandante Ernesto Guevara participó en la toma del último reducto. Con la liberación de esta última población se acentuaba la incomunicación hacia el este de las tropas del régimen.
+      </p>
+      <img src="img/placetas.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work31' name='works' type='radio'>
+    <div class="relative">
+      <label for='work31'>Liberación de Sancti Spíritus </label>
+      <span class='date'>25/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Liberación de Sancti Spíritus cuyas fuerzas defensoras abandonaron sus posiciones para dirigirse hacia Jatibonico. Se destacó en las acciones el capitán Armando Acosta Cordero. 
+      </p>
+      <img src="img/armando_acosta.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work32' name='works' type='radio'>
+    <div class="relative">
+      <label for='work32'>Inicio del combate de Remedios  </label>
+      <span class='date'>25/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Inicio del ataque que condujo a la liberación de Remedios al siguiente día. Fue particularmente difícil la toma de la Estación de Policías y el Ayuntamiento, con destaque especial para los integrantes del Pelotón Suicida. 
+      </p>
+      <img src="img/vaquerito4.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work33' name='works' type='radio'>
+    <div class="relative">
+      <label for='work33'>Liberación de Remedios y Caibarién </label>
+      <span class='date'>26/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Liberación de Caibarién con fuerzas combinada de las columnas Ciro Redondo y Antonio Maceo, los últimos del Frente Norte. Estas acciones fueron acordadas en entrevistas de sus dos Comandantes, Camilo y Che. 
+      </p>
+      <img src="img/vaquerito5.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work34' name='works' type='radio'>
+    <div class="relative">
+      <label for='work34'>Reunión en Las Tullerías, hotel de Placetas</label>
+      <span class='date'>27/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Reunión de los dirigentes de las organizaciones revolucionarias en el hotel “Las Tullerías” de Placetas donde el comandante Ernesto Guevara informó sobre la estrategia para la ofensiva restante y anunció el inicio del asedio a Santa Clara el día siguiente 28 de diciembre.
+      </p>
+      <img src="img/tullerias.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work35' name='works' type='radio'>
+    <div class="relative">
+      <label for='work35'>Combate de Santo Domingo </label>
+      <span class='date'>27/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Se produjo tras intenso combate la toma de Santo Domingo, poblado del cual se retirarán los rebeldes con posterioridad. Las fuerzas atacantes fueron dirigidas por el comandante Víctor Bordón. Fue librado definitivamente el 31 de diciembre. 
+      </p>
+      <img src="img/santodomingo.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work36' name='works' type='radio'>
+    <div class="relative">
+      <label for='work36'>Llegada del Che a la Universidad Central de Las Villas </label>
+      <span class='date'>28/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        En la madrugada de 28, las fuerzas rebeldes llegaron, como estaba previsto, a la Universidad Central de Las Villas. El Che estableció allí su estado mayor y definió de inmediato las tareas a cumplir por cada uno de los pelotones. 
+      </p>
+      <img src="img/uclv.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work37' name='works' type='radio'>
+    <div class="relative">
+      <label for='work37'>Inicio de la batalla de Santa Clara </label>
+      <span class='date'>28/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Inicio de la batalla de Santa Clara. Con fuertes combates en diferentes lugares de la ciudad como la Embotelladora de Refrescos, el Escuadrón 31 de la Guardia Rural, así como en los alrededores de la Loma del Capiro, el Cuartel de los Caballitos o Cuerpo de Vigilancia de Carreteras y el Regimiento Leoncio Vidal. 
+      </p>
+      <img src="img/escuadron31.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work38' name='works' type='radio'>
+    <div class="relative">
+      <label for='work38'>Descarrilamiento del Tren Blindado </label>
+      <span class='date'>29/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Descarrilamiento y rendición del Tren Blindado. Dicha acción se produjo en horas de la media tarde previo levantamiento de la línea férrea con un buldózer. Su tripulación de 408 hombres y el numeroso armamento quedó en manos rebeldes. Este día se rindió el Cuartel de Caballitos y el comandante Guevara trasladó la comandancia de la Universidad Central de Las Villas hacia el distrito de Obras Públicas. 
+      </p>
+      <img src="img/tren.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work39' name='works' type='radio'>
+    <div class="relative">
+      <label for='work39' style="font-size: 1.1em;">Caída en combate de El Vaquerito, rendición del Gobierno y la Cárcel </label>
+      <span class='date'>30/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>Después de tenaz resistencia se rindió a los rebeldes la guarnición del Gobierno Provincial ante el pelotón del teniente Alberto Fernández Montes de Oca. 
+Los rebeldes al mando del capitán Rogelio Acevedo tomaron el edificio de la Cárcel Provincial, cercano a la Audiencia de Las Villas. 
+En el combate por la toma de la Estación de Policía cayó el valeroso capitán jefe del Pelotón Suicida, Roberto Rodríguez Fernández, El Vaquerito. 
+      </p>
+      <img src="img/vaquerito7.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work40' name='works' type='radio'>
+    <div class="relative">
+      <label for='work40'>Liberación de Yaguajay </label>
+      <span class='date'>31/12/1958</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+       Culminación de la batalla de Yaguajay bajo el mando rebelde de Camilo Cienfuegos, luego de once días de fieros combates.
+      </p>
+      <img src="img/camilo20.jpg">
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work41' name='works' type='radio'>
+    <div class="relative">
+      <label for='work41'>Culminación de la Batalla de Santa Clara </label>
+      <span class='date'>1/01/1959</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+      <p>
+        Rendición de todas las posiciones pendientes en la batalla de Santa Clara: Escuadrón 31, Audiencia Provincial de Las Villas, clínica Martha Abreu, Aeropuerto y el Gran Hotel en el parque Leoncio Vidal. 
+Al avanzar la mañana de ese día y después de varios parlamentos se rindió toda la dotación con su armamento en el Regimiento Leoncio Vidal. Culminó la Batalla de Santa Clara.
+Con su caída en manos del Ejército Rebelde, sin llegar a combatir, quedaba liberada la capital de la provincia y culminaba, en rotunda victoria, la Campaña de Las Villas, ya que Camilo había completado la liberación del Yaguajay el día 31.
+
+      </p>
+    </div>
+  </li>
+</ul>
+  <!-- input type="button" value="Say hello" onClick="showAndroidToast('Hello Android!')" />
+
+  <input type="button" value="Say goodbye" onClick="getAndroidBye()" /-->
+
+  <script type="text/javascript">
+    /*
+	function showAndroidToast(toast) {
+        Android.showToast(toast);
+    }
+
+    //esta funcion se llama cdesde main Activity cuando carga el WebView
+    function init(val){
+        showAndroidToast(val)
+    }
+
+    //esta funcion llama codigo Android y toma el valor e una variable javascript
+    //y lo muestra llamando una funcion Android que carga el toast
+    function getAndroidBye() {
+        var bye = Android.getBye("Bye Sergio");
+        showAndroidToast(bye);
+    }*/
+</script>
+
+</body>
+
+</html>
